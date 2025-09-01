@@ -20,7 +20,7 @@ module launchpad::launchpad {
 
     public struct LAUNCHPAD has drop {}
 
-    public enum LaunchpadCollectionState has drop, store {
+    public enum LaunchpadState has drop, store {
         NotFound,
         Pending,
         Approved,
@@ -34,20 +34,20 @@ module launchpad::launchpad {
         base_fee_percentage: u64,
         custom_fee_percentage: Table<ID, u64>,
         balance: Balance<SUI>,
-        collections: Table<ID, LaunchpadCollectionState>,
+        launch_ids: Table<ID, LaunchpadState>,
         collection_types: Table<String, bool>,
     }
 
     // === Events ===
-    // public struct LaunchpadCollectionPendingEvent has copy, drop (ID)
+    // public struct LaunchpadPendingEvent has copy, drop (ID)
 
-    public struct LaunchpadCollectionApprovedEvent has copy, drop (ID)
+    public struct LaunchpadApprovedEvent has copy, drop (ID)
 
-    public struct LaunchpadCollectionRejectedEvent has copy, drop (ID)
+    public struct LaunchpadRejectedEvent has copy, drop (ID)
 
-    public struct LaunchpadCollectionPausedEvent has copy, drop (ID)
+    public struct LaunchpadPausedEvent has copy, drop (ID)
 
-    public struct LaunchpadCollectionResumedEvent has copy, drop (ID)
+    public struct LaunchpadResumedEvent has copy, drop (ID)
 
     // === Init ===
 
@@ -60,7 +60,7 @@ module launchpad::launchpad {
             base_fee_percentage: DEFAULT_FEE_PERCENTAGE,
             custom_fee_percentage: table::new(ctx),
             balance: balance::zero(),
-            collections: table::new(ctx),
+            launch_ids: table::new(ctx),
             collection_types: table::new(ctx),
         };
 
@@ -71,29 +71,29 @@ module launchpad::launchpad {
     // === Public Functions ===
 
     // === View Functions ===
-    public fun collection_status_appoved(_: &Launchpad): LaunchpadCollectionState {
-        LaunchpadCollectionState::Approved
+    public fun launch_status_appoved(_: &Launchpad): LaunchpadState {
+        LaunchpadState::Approved
     }
 
-    public fun collection_state(launchpad: &Launchpad, collection: ID): LaunchpadCollectionState {
-        if (!launchpad.collections.contains(collection)) {
-            return LaunchpadCollectionState::NotFound
+    public fun launch_state(launchpad: &Launchpad, launch: ID): LaunchpadState {
+        if (!launchpad.launch_ids.contains(launch)) {
+            return LaunchpadState::NotFound
         };
 
-        let state = &launchpad.collections[collection];
+        let state = &launchpad.launch_ids[launch];
 
         match (state) {
-            LaunchpadCollectionState::Pending => LaunchpadCollectionState::Pending,
-            LaunchpadCollectionState::Approved => LaunchpadCollectionState::Approved,
-            LaunchpadCollectionState::Rejected => LaunchpadCollectionState::Rejected,
-            LaunchpadCollectionState::Paused => LaunchpadCollectionState::Paused,
-            _ => LaunchpadCollectionState::NotFound,
+            LaunchpadState::Pending => LaunchpadState::Pending,
+            LaunchpadState::Approved => LaunchpadState::Approved,
+            LaunchpadState::Rejected => LaunchpadState::Rejected,
+            LaunchpadState::Paused => LaunchpadState::Paused,
+            _ => LaunchpadState::NotFound,
         }
     }
 
-    public fun fee_percentage(launchpad: &Launchpad, collection: ID): u64 {
-        if (launchpad.custom_fee_percentage.contains(collection)) {
-            let custom_fee = launchpad.custom_fee_percentage[collection];
+    public fun fee_percentage(launchpad: &Launchpad, launch: ID): u64 {
+        if (launchpad.custom_fee_percentage.contains(launch)) {
+            let custom_fee = launchpad.custom_fee_percentage[launch];
             // Return the minimum of custom fee and base fee
             std::u64::min(custom_fee, launchpad.base_fee_percentage)
         } else {
@@ -107,79 +107,74 @@ module launchpad::launchpad {
         launchpad.base_fee_percentage = fee;
     }
 
-    public fun set_custom_fee(
-        launchpad: &mut Launchpad,
-        _: &RoleCap<Admin>,
-        collection: ID,
-        fee: u64,
-    ) {
-        assert!(launchpad.collections.contains(collection), error::collectionNotFound!());
-        if (launchpad.custom_fee_percentage.contains(collection)) {
-            let old_fee = launchpad.custom_fee_percentage.borrow_mut(collection);
+    public fun set_custom_fee(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID, fee: u64) {
+        assert!(launchpad.launch_ids.contains(launch), error::launchNotFound!());
+        if (launchpad.custom_fee_percentage.contains(launch)) {
+            let old_fee = launchpad.custom_fee_percentage.borrow_mut(launch);
             *old_fee = fee;
-        } else { launchpad.custom_fee_percentage.add(collection, fee); };
+        } else { launchpad.custom_fee_percentage.add(launch, fee); };
     }
 
-    /// Approve a collection.
-    /// Once approved, collection creator can launch the collection.
-    public fun approve_collection(
+    /// Approve a launch.
+    /// Once approved, launch creator can launch the launch.
+    public fun approve_launch(
         launchpad: &mut Launchpad,
         _: &RoleCap<Admin>,
-        collection: ID,
+        launch: ID,
         custom_fee: Option<u64>,
     ) {
-        launchpad.assert_collection_exists(collection);
-        launchpad.assert_collection_state_pending(collection);
+        launchpad.assert_launch_exists(launch);
+        launchpad.assert_launch_state_pending(launch);
 
-        let state = &mut launchpad.collections[collection];
+        let state = &mut launchpad.launch_ids[launch];
         if (custom_fee.is_some()) {
             let fee = custom_fee.destroy_some();
-            launchpad.custom_fee_percentage.add(collection, fee);
+            launchpad.custom_fee_percentage.add(launch, fee);
         } else {
             custom_fee.destroy_none();
         };
-        emit(LaunchpadCollectionApprovedEvent(collection));
+        emit(LaunchpadApprovedEvent(launch));
 
-        *state = LaunchpadCollectionState::Approved;
+        *state = LaunchpadState::Approved;
     }
 
-    /// Reject a collection.
-    /// Once rejected, collection creator cannot launch the collection.
-    public fun reject_collection(launchpad: &mut Launchpad, _: &RoleCap<Admin>, collection: ID) {
-        launchpad.assert_collection_exists(collection);
-        launchpad.assert_collection_state_pending(collection);
+    /// Reject a launch.
+    /// Once rejected, launch creator cannot launch the launch.
+    public fun reject_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+        launchpad.assert_launch_exists(launch);
+        launchpad.assert_launch_state_pending(launch);
 
-        let state = &mut launchpad.collections[collection];
+        let state = &mut launchpad.launch_ids[launch];
 
-        emit(LaunchpadCollectionRejectedEvent(collection));
+        emit(LaunchpadRejectedEvent(launch));
 
-        *state = LaunchpadCollectionState::Rejected;
+        *state = LaunchpadState::Rejected;
     }
 
-    /// Pause a collection by admin.
-    /// Can only be called if the collection is approved.
-    public fun pause_collection(launchpad: &mut Launchpad, _: &RoleCap<Admin>, collection: ID) {
-        launchpad.assert_collection_exists(collection);
+    /// Pause a launch by admin.
+    /// Can only be called if the launch is approved.
+    public fun pause_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+        launchpad.assert_launch_exists(launch);
 
-        let state = &mut launchpad.collections[collection];
-        assert!(state == LaunchpadCollectionState::Approved, error::collectionNotApproved!());
+        let state = &mut launchpad.launch_ids[launch];
+        assert!(state == LaunchpadState::Approved, error::launchNotApproved!());
 
-        emit(LaunchpadCollectionPausedEvent(collection));
+        emit(LaunchpadPausedEvent(launch));
 
-        *state = LaunchpadCollectionState::Paused;
+        *state = LaunchpadState::Paused;
     }
 
-    /// Resume a collection by admin.
-    /// Can only be called if the collection is paused.
-    public fun resume_collection(launchpad: &mut Launchpad, _: &RoleCap<Admin>, collection: ID) {
-        launchpad.assert_collection_exists(collection);
+    /// Resume a launch by admin.
+    /// Can only be called if the launch is paused.
+    public fun resume_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+        launchpad.assert_launch_exists(launch);
 
-        let state = &mut launchpad.collections[collection];
-        assert!(state == LaunchpadCollectionState::Paused, error::collectionNotPaused!());
+        let state = &mut launchpad.launch_ids[launch];
+        assert!(state == LaunchpadState::Paused, error::launchNotPaused!());
 
-        emit(LaunchpadCollectionResumedEvent(collection));
+        emit(LaunchpadResumedEvent(launch));
 
-        *state = LaunchpadCollectionState::Approved;
+        *state = LaunchpadState::Approved;
     }
 
     /// Withdraw the balance from the launchpad by admin.
@@ -198,57 +193,54 @@ module launchpad::launchpad {
         assert!(self.version == VERSION, error::wrongVersion!());
     }
 
-    /// Registers a collection.
-    /// Once initialized, Admin can approve or reject the collection.
-    public(package) fun register_collection(
+    /// Registers a launch.
+    /// Once initialized, Admin can approve or reject the launch.
+    public(package) fun register_launch(
         launchpad: &mut Launchpad,
-        collection: ID,
+        launch: ID,
         // To prevent multiple creations from same package
-        collection_type: String,
+        launch_type: String,
     ) {
-        let state = LaunchpadCollectionState::Pending;
+        let state = LaunchpadState::Pending;
 
-        // emit(LaunchpadCollectionPendingEvent(collection));
+        // emit(LaunchpadPendingEvent(launch));
 
-        launchpad.collections.add(collection, state);
+        launchpad.launch_ids.add(launch, state);
 
-        assert!(!launchpad.collection_types.contains(collection_type), error::typeAlreadyExists!());
-        launchpad.collection_types.add(collection_type, true);
+        assert!(!launchpad.collection_types.contains(launch_type), error::typeAlreadyExists!());
+        launchpad.collection_types.add(launch_type, true);
     }
 
     /// Top up the launchpad balance.
-    /// Used to pay the fee for collection launch.
+    /// Used to pay the fee for launch launch.
     public(package) fun top_up(launchpad: &mut Launchpad, fee: Coin<SUI>) {
         coin::put(&mut launchpad.balance, fee)
     }
 
     // === Package Functions: asserts
 
-    public(package) fun assert_collection_approved(launchpad: &Launchpad, collection: ID) {
+    public(package) fun assert_launch_approved(launchpad: &Launchpad, launch: ID) {
         assert!(
-            launchpad.collection_state(collection) == LaunchpadCollectionState::Approved,
-            error::collectionNotApproved!(),
+            launchpad.launch_state(launch) == LaunchpadState::Approved,
+            error::launchNotApproved!(),
         );
     }
 
-    public(package) fun assert_collection_not_paused(launchpad: &Launchpad, collection: ID) {
-        assert!(
-            launchpad.collection_state(collection) != LaunchpadCollectionState::Paused,
-            error::collectionPaused!(),
-        );
+    public(package) fun assert_launch_not_paused(launchpad: &Launchpad, launch: ID) {
+        assert!(launchpad.launch_state(launch) != LaunchpadState::Paused, error::launchPaused!());
     }
 
     // === Private Functions ===
 
-    fun assert_collection_exists(launchpad: &Launchpad, collection: ID) {
-        assert!(launchpad.collections.contains(collection), error::collectionNotFound!())
+    fun assert_launch_exists(launchpad: &Launchpad, launch: ID) {
+        assert!(launchpad.launch_ids.contains(launch), error::launchNotFound!())
     }
 
-    fun assert_collection_state_pending(launchpad: &Launchpad, collection: ID) {
-        let state = &launchpad.collections[collection];
+    fun assert_launch_state_pending(launchpad: &Launchpad, launch: ID) {
+        let state = &launchpad.launch_ids[launch];
         assert!(
-            state == LaunchpadCollectionState::Pending || state == LaunchpadCollectionState::Rejected,
-            error::collectionNotPending!(),
+            state == LaunchpadState::Pending || state == LaunchpadState::Rejected,
+            error::launchNotPending!(),
         )
     }
     #[test_only]
@@ -257,17 +249,17 @@ module launchpad::launchpad {
         init(otw, ctx);
     }
     #[test_only]
-    public fun pending_collection_state_testing(): LaunchpadCollectionState {
-        LaunchpadCollectionState::Pending
+    public fun pending_launch_state_testing(): LaunchpadState {
+        LaunchpadState::Pending
     }
 
     #[test_only]
-    public fun rejected_collection_state_testing(): LaunchpadCollectionState {
-        LaunchpadCollectionState::Rejected
+    public fun rejected_launch_state_testing(): LaunchpadState {
+        LaunchpadState::Rejected
     }
     #[test_only]
-    public fun paused_collection_state_testing(): LaunchpadCollectionState {
-        LaunchpadCollectionState::Paused
+    public fun paused_launch_state_testing(): LaunchpadState {
+        LaunchpadState::Paused
     }
 }
 

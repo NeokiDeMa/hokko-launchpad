@@ -1,6 +1,6 @@
 #[allow(unused)]
 module launchpad::error {
-    // Collections package errors start with 100
+    // launchs package errors start with 100
     // Launchpad package errors start with 200
 
     #[test_only]
@@ -47,15 +47,15 @@ module launchpad::error {
     const ECustomMintEnded: u64 = 121;
 
     #[test_only]
-    const ECollectionNotFound: u64 = 201;
+    const ElaunchNotFound: u64 = 201;
     #[test_only]
-    const ECollectionNotPending: u64 = 202;
+    const ElaunchNotPending: u64 = 202;
     #[test_only]
-    const ECollectionNotApproved: u64 = 203;
+    const ElaunchNotApproved: u64 = 203;
     #[test_only]
-    const ECollectionNotPaused: u64 = 204;
+    const ElaunchNotPaused: u64 = 204;
     #[test_only]
-    const ECollectionPaused: u64 = 205;
+    const ElaunchPaused: u64 = 205;
     #[test_only]
     const ETypeAlreadyExists: u64 = 206;
 
@@ -125,19 +125,19 @@ module launchpad::error {
     }
 
     /// Launchpad package errors
-    public(package) macro fun collectionNotFound(): u64 {
+    public(package) macro fun launchNotFound(): u64 {
         201
     }
-    public(package) macro fun collectionNotPending(): u64 {
+    public(package) macro fun launchNotPending(): u64 {
         202
     }
-    public(package) macro fun collectionNotApproved(): u64 {
+    public(package) macro fun launchNotApproved(): u64 {
         203
     }
-    public(package) macro fun collectionNotPaused(): u64 {
+    public(package) macro fun launchNotPaused(): u64 {
         204
     }
-    public(package) macro fun collectionPaused(): u64 {
+    public(package) macro fun launchPaused(): u64 {
         205
     }
     public(package) macro fun typeAlreadyExists(): u64 {

@@ -3,7 +3,7 @@ module launchpad::roles {
 
     // === Errors ===
 
-    const ENotCollectionDeployer: u64 = 0;
+    const ENotlaunchDeployer: u64 = 0;
 
     // === Constants ===
 
@@ -18,10 +18,10 @@ module launchpad::roles {
     public struct ROLES has drop {}
 
     /// Represents a creator role.
-    /// Creators have the ability to manage a collection.
+    /// Creators have the ability to manage a launch.
     public struct Creator has key, store {
         id: UID,
-        collection: ID,
+        launch: ID,
     }
 
     // === Events ===
@@ -34,9 +34,9 @@ module launchpad::roles {
 
     // === Public Functions ===
 
-    /// Check if the creator is for the given collection.
-    public fun assert_collection_creator(creator: &Creator, collection: ID) {
-        assert!(creator.collection == collection, ENotCollectionDeployer)
+    /// Check if the creator is for the given launch.
+    public fun assert_launch_creator(creator: &Creator, launch: ID) {
+        assert!(creator.launch == launch, ENotlaunchDeployer)
     }
 
     // === View Functions ===
@@ -73,11 +73,11 @@ module launchpad::roles {
 
     // === Package Functions ===
 
-    /// Create a new creator role for the given collection ID.
-    public(package) fun new_creator(collection: ID, ctx: &mut TxContext): Creator {
+    /// Create a new creator role for the given launch ID.
+    public(package) fun new_creator(launch: ID, ctx: &mut TxContext): Creator {
         Creator {
             id: object::new(ctx),
-            collection,
+            launch,
         }
     }
 
