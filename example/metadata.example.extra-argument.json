@@ -1,0 +1,66 @@
+[
+  {
+    "name": "My awesome NFT #1",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft1.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Blue Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Robot"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Golden Chain"
+      }
+    ],
+    "extra-inputs": [
+      {
+        "type": "u64",
+        "vaulue": "13"
+      },
+      {
+        "type": "0x98127398173817::example::Config",
+        "vaulue": "0x1897some-objectid19827398"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #2",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft2.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "Crazy Eyes"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Wizard Hat"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Smirking"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Night City"
+      }
+    ],
+    "extra-inputs": [
+      {
+        "type": "u64",
+        "value": "20"
+      },
+      {
+        "type": "0x98127398173817::example::Config",
+        "vaulue": "0x1897some-other-objectid19827398"
+      }
+    ]
+  }
+]

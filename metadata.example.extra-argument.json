@@ -1,0 +1,82 @@
+[
+  {
+    "name": "My awesome NFT #1",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft1.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Blue Sky"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Robot"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Golden Chain"
+      }
+    ],
+    "extra-inputs": [
+      {
+        "type": "String",
+        "vaulue": "Some string data"
+      },
+      {
+        "type": "Bool",
+        "vaulue": true
+      },
+      {
+        "type": "u64",
+        "vaulue": 900
+      }
+    ],
+    "extra-argument-types": [
+      "0x1234::new_module::other_struct",
+      "0x5678::another_module::my_struct"
+    ]
+  },
+  {
+    "name": "My awesome NFT #2",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft2.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "Crazy Eyes"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Wizard Hat"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Smirking"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Night City"
+      }
+    ],
+    "extra-inputs": [
+      {
+        "type": "String",
+        "vaulue": "Some different string"
+      },
+      {
+        "type": "Bool",
+        "vaulue": false
+      },
+      {
+        "type": "u64",
+        "vaulue": 1234
+      }
+    ],
+    "extra-argument-types": [
+      "0x1234::new_module::other_struct",
+      "0x5678::another_module::my_struct"
+    ]
+  }
+]
