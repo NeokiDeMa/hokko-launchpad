@@ -18,7 +18,7 @@
         "value": "Golden Chain"
       }
     ],
-    "extra-inputs": [
+    "extraInputs": [
       {
         "type": "String",
         "vaulue": "Some string data"
@@ -32,7 +32,7 @@
         "vaulue": 900
       }
     ],
-    "extra-argument-types": [
+    "extraArgumentTypes": [
       "0x1234::new_module::other_struct",
       "0x5678::another_module::my_struct"
     ]
@@ -60,7 +60,7 @@
         "value": "Night City"
       }
     ],
-    "extra-inputs": [
+    "extraInputs": [
       {
         "type": "String",
         "vaulue": "Some different string"
@@ -74,7 +74,7 @@
         "vaulue": 1234
       }
     ],
-    "extra-argument-types": [
+    "extraArgumentTypes": [
       "0x1234::new_module::other_struct",
       "0x5678::another_module::my_struct"
     ]

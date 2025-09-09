@@ -18,7 +18,7 @@
         "value": "Golden Chain"
       }
     ],
-    "extra-inputs": [
+    "extraInputs": [
       {
         "type": "u64",
         "vaulue": "13"
@@ -52,7 +52,7 @@
         "value": "Night City"
       }
     ],
-    "extra-inputs": [
+    "extraInputs": [
       {
         "type": "u64",
         "value": "20"

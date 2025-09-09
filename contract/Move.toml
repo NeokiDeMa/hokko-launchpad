@@ -1,0 +1,45 @@
+[package]
+name = "Launchpad"
+edition = "2024.beta" 
+license = "MIT"       
+authors = [
+  "Carl Klöfverskjöld (www.github.com/Reblixt)",
+  "Ernest Zulpukarov (www.github.com/retwn)"
+]  
+
+[dependencies]
+# Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/mainnet", override = true }
+auth_bridge = { git = "https://github.com/ReforgeLab/auth-bridge.git", subdir = "contract", rev = "main"}
+Kiosk = { git = "https://github.com/MystenLabs/apps.git", subdir = "kiosk", rev = "main" }
+access_control = { git = "https://github.com/Reblixt/Sui-Access-Control.git", rev = "main" }
+# For remote import, use the `{ git = "...", subdir = "...", rev = "..." }`.
+# Revision can be a branch, a tag, and a commit hash.
+# MyRemotePackage = { git = "https://some.remote/host.git", subdir = "remote/path", rev = "main" }
+
+# For local dependencies use `local = path`. Path is relative to the package root
+# Local = { local = "../path/to" }
+
+# To resolve a version conflict and force a specific version for dependency
+# override use `override = true`
+# Override = { local = "../conflicting/version", override = true }
+
+# Upgradecap 0x58929067800047e73ba7da636f4396120777e1755b83cd6adf0c7f97b8769f79
+# SRoles 0x469852b2aa4ed55c0fb5ef58367677c087da054fc4c68afa7ad8fd26ce42ed8c
+# OwnerRole 0x8da8a884dc2507ecbd7cc3043acc8bf8d94962e309b152684044aad0eefd2e7c
+# Launchpad 0x3b0249a42e515b66bf16eb4862164273232c79aa84d74895cf7fd36bc59e4ee2
+[addresses]
+launchpad = "0x7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f"
+
+# Named addresses will be accessible in Move as `@name`. They're also exported:
+# for example, `std = "0x1"` is exported by the Standard Library.
+# alice = "0xA11CE"
+
+[dev-dependencies]
+# The dev-dependencies section allows overriding dependencies for `--test` and
+# `--dev` modes. You can introduce test-only dependencies here.
+# Local = { local = "../path/to/dev-build" }
+
+[dev-addresses]
+# The dev-addresses section allows overwriting named addresses for the `--test`
+# and `--dev` modes.
+# alice = "0xB0B"
