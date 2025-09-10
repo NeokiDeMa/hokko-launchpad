@@ -3,15 +3,15 @@ compiled_package_info:
   package_name: example
   address_alias_instantiation:
     access_control: eb04131cc0b54fb5d50d48113a734d95f7c5ff30a2c1021cf259f3f77accd2fc
-    auth_bridge: b3f38035c71cab124e27c00605898da46b4d63bca26fb42467042f75b50361b2
+    auth_bridge: 78bdf769b85d6a0fa787561739df0e55063d9eca79aa1cce3904f3e9aeac3273
     bridge: 000000000000000000000000000000000000000000000000000000000000000b
-    example: "0000000000000000000000000000000000000000000000000000000000000000"
+    example: 13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97
     kiosk: "0000000000000000000000000000000000000000000000000000000000000000"
-    launchpad: "0000000000000000000000000000000000000000000000000000000000000000"
+    launchpad: 7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f
     std: "0000000000000000000000000000000000000000000000000000000000000001"
     sui: "0000000000000000000000000000000000000000000000000000000000000002"
     sui_system: "0000000000000000000000000000000000000000000000000000000000000003"
-  source_digest: C3BB5826DE4AC8E75D711525925244D577AAC8D88F0DE5FA659B76C093C6D064
+  source_digest: E0F511E567FB3B53650690680291E80C8CA5E5C6845A0563F74115043F4B1A50
   build_flags:
     dev_mode: false
     test_mode: false
@@ -39,7 +39,7 @@ compiled_package_info:
           kind:
             Git:
               git_url: "https://github.com/MystenLabs/sui.git"
-              git_rev: db951a5ea6b125f6253a6b7f436ddba46eb0feb3
+              git_rev: 664b05b3b047c5bb03979d093660176176ea6175
               subdir: crates/sui-framework/packages/bridge
           subst: ~
           digest: ~
@@ -49,7 +49,7 @@ compiled_package_info:
           kind:
             Git:
               git_url: "https://github.com/MystenLabs/sui.git"
-              git_rev: db951a5ea6b125f6253a6b7f436ddba46eb0feb3
+              git_rev: 664b05b3b047c5bb03979d093660176176ea6175
               subdir: crates/sui-framework/packages/move-stdlib
           subst: ~
           digest: ~
@@ -59,7 +59,7 @@ compiled_package_info:
           kind:
             Git:
               git_url: "https://github.com/MystenLabs/sui.git"
-              git_rev: db951a5ea6b125f6253a6b7f436ddba46eb0feb3
+              git_rev: 664b05b3b047c5bb03979d093660176176ea6175
               subdir: crates/sui-framework/packages/sui-framework
           subst: ~
           digest: ~
@@ -69,7 +69,7 @@ compiled_package_info:
           kind:
             Git:
               git_url: "https://github.com/MystenLabs/sui.git"
-              git_rev: db951a5ea6b125f6253a6b7f436ddba46eb0feb3
+              git_rev: 664b05b3b047c5bb03979d093660176176ea6175
               subdir: crates/sui-framework/packages/sui-system
           subst: ~
           digest: ~

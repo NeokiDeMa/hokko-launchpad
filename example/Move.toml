@@ -17,8 +17,15 @@ Launchpad = { local = "../contract" }
 # override use `override = true`
 # Override = { local = "../conflicting/version", override = true }
 
+#Upgradecap 0xf0442f30b977435a3ec2668193f8365eeae478285b196fac8a829f72526cfd2a
+# MintCap 0xb4ac2714b87f7ca5d2a026b2a95b52bddcad586cccf861ecc45e472db16cac24
+# TransferPolicy 0x97be3aeb5e91401459bede5b0b4879067692e7ffb89ea616f7deda6d744e6b95
+# TransferPolicyCap 0x0bbc06f139b1e26be25e7229f61c91d81a1d5d643a05f07ce2420b40e78fd0b9
+# Publisher 0x8eaccdb1481e76546f07697692982c33eccd49420106da0c9be18f84e581f760
+# Config 0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a
+# 
 [addresses]
-example = "0x0"
+example = "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.

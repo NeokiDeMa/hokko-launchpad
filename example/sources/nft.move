@@ -88,10 +88,12 @@ module example::nft {
         // Optional: Example of extra arguments from the JSON metadata
         rarity: u64,
         config: &mut Config,
+        // ctx is required but needs to be last
         ctx: &mut TxContext,
     ) {
         config.assert_mintable();
         let nft = impl_mint(name, image_url, description, rarity, trait_keys, value_keys, ctx);
+
         emit(MintNftEvent { nft_id: nft.id.to_inner() });
 
         config.mint_count = config.mint_count + 1;
