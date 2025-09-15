@@ -27,8 +27,16 @@ access_control = { git = "https://github.com/Reblixt/Sui-Access-Control.git", re
 # SRoles 0x469852b2aa4ed55c0fb5ef58367677c087da054fc4c68afa7ad8fd26ce42ed8c
 # OwnerRole 0x8da8a884dc2507ecbd7cc3043acc8bf8d94962e309b152684044aad0eefd2e7c
 # Launchpad 0x3b0249a42e515b66bf16eb4862164273232c79aa84d74895cf7fd36bc59e4ee2
+# [addresses]
+# launchpad = "0x7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f"
+
+## Latest
+# Upgradecap 0xf760474a3359379d40fb68a141adb52d3d3a1503369ffeb08e4ee20689ad3319
+# SRoles 0xf73046796d1a9edecfd68d51746eae5c5114528aa6a91465d2cc1be3aab2fb74
+# OwnerRole 0xc9bda256c284b5370e6e3e92c0c297331d86561f660f40b02ba8fde5743a5ad3
+# Launchpad 0x2ae52ba5f64ae386c8fabb62f7c00a24fddcb582bc0a0337f3e49ff13d50f841
 [addresses]
-launchpad = "0x7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f"
+launchpad = "0x02497004f3f3ff0f78bdb6c05c62c3c45b06ff531ea9ffd7fa191c7223b729a8"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.

@@ -21,11 +21,11 @@
     "extraInputs": [
       {
         "type": "u64",
-        "vaulue": "13"
+        "value": "13"
       },
       {
-        "type": "0x98127398173817::example::Config",
-        "vaulue": "0x1897some-objectid19827398"
+        "type": "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97::nft::Config",
+        "value": "0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a"
       }
     ]
   },
@@ -58,8 +58,8 @@
         "value": "20"
       },
       {
-        "type": "0x98127398173817::example::Config",
-        "vaulue": "0x1897some-other-objectid19827398"
+        "type": "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97::nft::Config",
+        "value": "0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a"
       }
     ]
   }
