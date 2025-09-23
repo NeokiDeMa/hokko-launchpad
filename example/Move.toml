@@ -8,24 +8,33 @@ edition = "2024.beta" # edition = "legacy" to use legacy (pre-2024) Move
 
 # For remote import, use the `{ git = "...", subdir = "...", rev = "..." }`.
 # Revision can be a branch, a tag, and a commit hash.
-# MyRemotePackage = { git = "https://some.remote/host.git", subdir = "remote/path", rev = "main" }
+Launchpad = { git = "https://github.com/NeokiDeMa/hokko-launchpad.git", subdir = "contract", rev = "main" }
 
 # For local dependencies use `local = path`. Path is relative to the package root
-Launchpad = { local = "../contract" }
+# Launchpad = { local = "../contract" }
 
 # To resolve a version conflict and force a specific version for dependency
 # override use `override = true`
 # Override = { local = "../conflicting/version", override = true }
 
-#Upgradecap 0xf0442f30b977435a3ec2668193f8365eeae478285b196fac8a829f72526cfd2a
-# MintCap 0xb4ac2714b87f7ca5d2a026b2a95b52bddcad586cccf861ecc45e472db16cac24
-# TransferPolicy 0x97be3aeb5e91401459bede5b0b4879067692e7ffb89ea616f7deda6d744e6b95
-# TransferPolicyCap 0x0bbc06f139b1e26be25e7229f61c91d81a1d5d643a05f07ce2420b40e78fd0b9
-# Publisher 0x8eaccdb1481e76546f07697692982c33eccd49420106da0c9be18f84e581f760
-# Config 0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a
-# 
+# Version 1
+# Upgradecap 0x2982550eeeca9686e93c24e0ca3c96b32f0d61e1a0fdaac02bcb39cfa8590a22
+# MintCap 0xc422fd0d1b1f9a490d0993d1f2ff88e48ef28ecd094266415dc4e5f93154e52a 
+# TransferPolicy 0x64b2de3d3354b9d394b6e4ed3f902f25840d932eaab86c551eeb1b46d56bdb5d
+# TransferPolicyCap 0x20fa740294bbadcec2b4194c541aac8f4a055e1e7862dc950d9165efde88cb09
+# Publisher 0x3378dbc0eba64d1a641308e402f90962633a257cbed0a19206650d28a4ed9714
+# Config 0xcd2e42104bc9c2ef8bfcb49def167492831e001983a9093bea2cf03164609e79
+# example = "0x8a4dcaf4cb00109cd6421772d01be2e7f4af6ba8413934d6c8b99aeed795eacf"
+
+# Version 2
+# Upgradecap 0x85da674c5f2042962ef28cfe6bbe7916c8c139fc72a8c77f8dc51daa73286194
+# MintCap 0xf1d9f9f308ac2c6face7a2c9b42d631c67491cc0b023ab7324d0953e229a200c 
+# TransferPolicy 0x64412655e2bfbb2e18b59483669caa54fc71097dc371fb674db734c7ccecccb9
+# TransferPolicyCap 0x2f62e27540d2a8dcdd4019fa68e87719afdce588b01d1ac1e088de9cecc14776
+# Publisher 0xb2fc5d210d6cf8c71a5b684500941605bddf1f4b06d943ac9e67adbdecd15bd5
+# Config 0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f
 [addresses]
-example = "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97"
+example = "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.

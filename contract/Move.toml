@@ -8,7 +8,6 @@ authors = [
 ]  
 
 [dependencies]
-# Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/mainnet", override = true }
 auth_bridge = { git = "https://github.com/ReforgeLab/auth-bridge.git", subdir = "contract", rev = "main"}
 Kiosk = { git = "https://github.com/MystenLabs/apps.git", subdir = "kiosk", rev = "main" }
 access_control = { git = "https://github.com/Reblixt/Sui-Access-Control.git", rev = "main" }
@@ -27,16 +26,24 @@ access_control = { git = "https://github.com/Reblixt/Sui-Access-Control.git", re
 # SRoles 0x469852b2aa4ed55c0fb5ef58367677c087da054fc4c68afa7ad8fd26ce42ed8c
 # OwnerRole 0x8da8a884dc2507ecbd7cc3043acc8bf8d94962e309b152684044aad0eefd2e7c
 # Launchpad 0x3b0249a42e515b66bf16eb4862164273232c79aa84d74895cf7fd36bc59e4ee2
-# [addresses]
-# launchpad = "0x7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f"
+# packageid = "0x7d0dd35bbfbac5218f8ad6183b3a73816b19d732d5399e4ad4d67f3d082fd57f"
 
 ## Latest
 # Upgradecap 0xf760474a3359379d40fb68a141adb52d3d3a1503369ffeb08e4ee20689ad3319
 # SRoles 0xf73046796d1a9edecfd68d51746eae5c5114528aa6a91465d2cc1be3aab2fb74
 # OwnerRole 0xc9bda256c284b5370e6e3e92c0c297331d86561f660f40b02ba8fde5743a5ad3
 # Launchpad 0x2ae52ba5f64ae386c8fabb62f7c00a24fddcb582bc0a0337f3e49ff13d50f841
+# packageid = "0x02497004f3f3ff0f78bdb6c05c62c3c45b06ff531ea9ffd7fa191c7223b729a8"
+
+## Latest
+# Upgradecap 0xdbf12ab314168ab1bda6f9d1644c3fae539b61d75713aa78bc4d6bf1e574cb96
+# SRoles 0xf01c8705bcdc6ebe48d9a8e7fda22a1b3ca8c491f4cf9bea3324179f304991a3
+# OwnerRole 0xc2061ba3eabd829280a3468090ef749305148c385baf2edb02f4e1a79454ebcd
+# Launchpad 0xe688408ea6c42086a5bf925f62587f4a7d4f578def5df3ccd9ba73cc6f7697ca
+# publisher 0x09fa7f46ccd3601bbc0a783c032a49ca2b470cdc3e120a6d3eb33700649e0a78
+# packageid 
 [addresses]
-launchpad = "0x02497004f3f3ff0f78bdb6c05c62c3c45b06ff531ea9ffd7fa191c7223b729a8"
+launchpad = "0x071296655b5bf15a4115573ccc283e1b75974a338e639a125adffcaf7560b16f"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.

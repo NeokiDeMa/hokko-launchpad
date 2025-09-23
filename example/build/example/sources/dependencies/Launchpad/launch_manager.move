@@ -99,6 +99,7 @@ module launchpad::launch_manager {
     public struct LaunchInitializedEvent has copy, drop {
         launch: ID,
         cover_url: String,
+        creator_cap: ID,
         item_type: String,
         is_kiosk: bool,
         name: String,
@@ -279,6 +280,7 @@ module launchpad::launch_manager {
         emit(LaunchInitializedEvent {
             launch: launch.id.to_inner(),
             cover_url,
+            creator_cap: object::id(&creator),
             item_type: launch.item_type,
             is_kiosk: launch.is_kiosk,
             name: launch.name,

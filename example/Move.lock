@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "130B58AC6511A967435FA9368E9E581D97A03E97E23FB84FE4304FC6093FE106"
+manifest_digest = "4F18F98488E36D57BE6CC65CFFC704EF35B325BCB596CA4EC46B5FE52D28B07D"
 deps_digest = "397E6A9F7A624706DBDFEE056CE88391A15876868FD18A88504DA74EB458D697"
 dependencies = [
   { id = "Bridge", name = "Bridge" },
@@ -32,7 +32,7 @@ dependencies = [
 
 [[move.package]]
 id = "Launchpad"
-source = { local = "../contract" }
+source = { git = "https://github.com/NeokiDeMa/hokko-launchpad.git", rev = "main", subdir = "contract" }
 
 dependencies = [
   { id = "Bridge", name = "Bridge" },
@@ -91,8 +91,8 @@ flavor = "sui"
 
 [env]
 
-[env.blast-mainnet]
+[env.mainnet]
 chain-id = "35834a8a"
-original-published-id = "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97"
-latest-published-id = "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97"
+original-published-id = "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5"
+latest-published-id = "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5"
 published-version = "1"

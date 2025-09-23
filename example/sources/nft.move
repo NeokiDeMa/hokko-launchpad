@@ -165,15 +165,15 @@ module example::nft {
     //TODO: Get the correct data
     #[allow(lint(self_transfer))]
     fun setup_display(mut display: display::Display<Nft>, sender: address) {
-        let banner_image = b"https://betbarkers.com/banner.png".to_string();
-        let cover_url = b"https://betbarkers.com/cover.png".to_string();
+        let banner_image = b"https://testers.com/banner.png".to_string();
+        let cover_url = b"https://testers.com/cover.png".to_string();
 
         display.add(b"collection_name".to_string(), b"Nft".to_string());
         display.add(
             b"collection_description".to_string(),
             b"Nft is a collection of unique NFTs representing digital collectibles.".to_string(),
         );
-        display.add(b"project_url".to_string(), b"https://betbarkers.com".to_string());
+        display.add(b"project_url".to_string(), b"https://testers.com".to_string());
         display.add(b"creator".to_string(), b"Nft Team".to_string());
         display.add(b"banner_image".to_string(), banner_image);
         display.add(b"cover_url".to_string(), cover_url);
@@ -181,6 +181,7 @@ module example::nft {
         display.add(b"image_url".to_string(), b"{image_url}".to_string());
         display.add(b"description".to_string(), b"{description}".to_string());
         display.add(b"rarity".to_string(), b"{rarity}".to_string());
+        display.update_version();
         transfer::public_transfer(display, sender);
     }
 

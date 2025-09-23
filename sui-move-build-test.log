@@ -1,0 +1,874 @@
+hokko-launchpad/contract main  ? ❯ sui move build --test
+UPDATING GIT DEPENDENCY https://github.com/MystenLabs/apps.git
+UPDATING GIT DEPENDENCY https://github.com/MystenLabs/sui.git
+UPDATING GIT DEPENDENCY https://github.com/Reblixt/Sui-Access-Control.git
+UPDATING GIT DEPENDENCY https://github.com/ReforgeLab/auth-bridge.git
+INCLUDING DEPENDENCY Kiosk
+INCLUDING DEPENDENCY access_control
+INCLUDING DEPENDENCY auth_bridge
+INCLUDING DEPENDENCY Bridge
+INCLUDING DEPENDENCY SuiSystem
+INCLUDING DEPENDENCY Sui
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING Launchpad
+warning[W10007]: issue with attribute value
+   ┌─ ./tests/launchpad_tests.move:33:30
+   │
+33 │     #[test, expected_failure(abort_code = 113)]
+   │                              ^^^^^^^^^^^^^^^^
+   │                              │            │
+   │                              │            Replace value with a constant from expected module or add 'location=...'
+   │                              WARNING: passes for an abort from any module
+
+warning[W04037]: deprecated usage
+   ┌─ ./tests/launchpad_tests.move:49:9
+   │
+49 │         assert_eq(
+   │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+   │
+   = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+   ┌─ ./tests/launchpad_tests.move:59:9
+   │
+59 │         assert_eq(
+   │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+   │
+   = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:72:13
+    │
+ 72 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+ 73 │ │                 &mut launch,
+ 74 │ │                 nft,
+ 75 │ │                 payment,
+    · │
+ 79 │ │                 scen.ctx(),
+ 80 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:72:13
+    │
+ 72 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+ 73 │ │                 &mut launch,
+ 74 │ │                 nft,
+ 75 │ │                 payment,
+    · │
+ 78 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+ 79 │ │                 scen.ctx(),
+ 80 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:72:13
+    │
+ 72 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+ 73 │ │ │                 &mut launch,
+ 74 │ │ │                 nft,
+ 75 │ │ │                 payment,
+    · │ │
+ 79 │ │ │                 scen.ctx(),
+ 80 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:92:13
+    │
+ 92 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+ 93 │ │                 &mut launch,
+ 94 │ │                 nft,
+ 95 │ │                 payment,
+    · │
+ 99 │ │                 scen.ctx(),
+100 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:92:13
+    │
+ 92 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+ 93 │ │                 &mut launch,
+ 94 │ │                 nft,
+ 95 │ │                 payment,
+    · │
+ 98 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+ 99 │ │                 scen.ctx(),
+100 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:92:13
+    │
+ 92 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+ 93 │ │ │                 &mut launch,
+ 94 │ │ │                 nft,
+ 95 │ │ │                 payment,
+    · │ │
+ 99 │ │ │                 scen.ctx(),
+100 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W10007]: issue with attribute value
+    ┌─ ./tests/launchpad_tests.move:116:30
+    │
+116 │     #[test, expected_failure(abort_code = 115)]
+    │                              ^^^^^^^^^^^^^^^^
+    │                              │            │
+    │                              │            Replace value with a constant from expected module or add 'location=...'
+    │                              WARNING: passes for an abort from any module
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:133:9
+    │
+133 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:144:9
+    │
+144 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:156:13
+    │
+156 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+157 │ │                 &mut launch,
+158 │ │                 nft,
+159 │ │                 payment,
+    · │
+163 │ │                 scen.ctx(),
+164 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:156:13
+    │
+156 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+157 │ │                 &mut launch,
+158 │ │                 nft,
+159 │ │                 payment,
+    · │
+162 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+163 │ │                 scen.ctx(),
+164 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:156:13
+    │
+156 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+157 │ │ │                 &mut launch,
+158 │ │ │                 nft,
+159 │ │ │                 payment,
+    · │ │
+163 │ │ │                 scen.ctx(),
+164 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:206:9
+    │
+206 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:215:9
+    │
+215 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:228:13
+    │
+228 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+229 │ │                 &mut launch,
+230 │ │                 nft,
+231 │ │                 payment,
+    · │
+235 │ │                 scen.ctx(),
+236 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:228:13
+    │
+228 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+229 │ │                 &mut launch,
+230 │ │                 nft,
+231 │ │                 payment,
+    · │
+234 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+235 │ │                 scen.ctx(),
+236 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:228:13
+    │
+228 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+229 │ │ │                 &mut launch,
+230 │ │ │                 nft,
+231 │ │ │                 payment,
+    · │ │
+235 │ │ │                 scen.ctx(),
+236 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:252:9
+    │
+252 │         assert_eq(alice_coin.value(), dot_five_percent);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:255:9
+    │
+255 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:264:9
+    │
+264 │         assert_eq(launchpad_coin.value(), withdraw_amount - dot_five_percent);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:300:9
+    │
+300 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:309:9
+    │
+309 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:321:13
+    │
+321 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+322 │ │                 &mut launch,
+323 │ │                 nft,
+324 │ │                 payment,
+    · │
+328 │ │                 scen.ctx(),
+329 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:321:13
+    │
+321 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+322 │ │                 &mut launch,
+323 │ │                 nft,
+324 │ │                 payment,
+    · │
+327 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+328 │ │                 scen.ctx(),
+329 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:321:13
+    │
+321 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+322 │ │ │                 &mut launch,
+323 │ │ │                 nft,
+324 │ │ │                 payment,
+    · │ │
+328 │ │ │                 scen.ctx(),
+329 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:341:9
+    │
+341 │         assert_eq(alice_coin.value(), after_two_percent);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:344:9
+    │
+344 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:353:9
+    │
+353 │         assert_eq(launchpad_coin.value(), withdraw_amount - after_two_percent);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:400:9
+    │
+400 │         assert_eq(new_ts, start_timestamp_ms);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:401:9
+    │
+401 │         assert_eq(new_w_ts, whitelist_start_timestamp_ms);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:402:9
+    │
+402 │         assert_eq(new_c_ts, custom_start_timestamp_ms);
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:433:9
+    │
+433 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:451:13
+    │
+451 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+452 │ │                 &mut launch,
+453 │ │                 nft,
+454 │ │                 payment,
+    · │
+458 │ │                 scen.ctx(),
+459 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:451:13
+    │
+451 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+452 │ │                 &mut launch,
+453 │ │                 nft,
+454 │ │                 payment,
+    · │
+457 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+458 │ │                 scen.ctx(),
+459 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:451:13
+    │
+451 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+452 │ │ │                 &mut launch,
+453 │ │ │                 nft,
+454 │ │ │                 payment,
+    · │ │
+458 │ │ │                 scen.ctx(),
+459 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:463:9
+    │
+463 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:480:13
+    │
+480 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+481 │ │                 &mut launch,
+482 │ │                 nft,
+483 │ │                 payment,
+    · │
+487 │ │                 scen.ctx(),
+488 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:480:13
+    │
+480 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+481 │ │                 &mut launch,
+482 │ │                 nft,
+483 │ │                 payment,
+    · │
+486 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+487 │ │                 scen.ctx(),
+488 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:480:13
+    │
+480 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+481 │ │ │                 &mut launch,
+482 │ │ │                 nft,
+483 │ │ │                 payment,
+    · │ │
+487 │ │ │                 scen.ctx(),
+488 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:492:9
+    │
+492 │         assert_eq(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:500:9
+    │
+500 │         assert_eq(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:508:13
+    │
+508 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+509 │ │                 &mut launch,
+510 │ │                 nft,
+511 │ │                 payment,
+    · │
+515 │ │                 scen.ctx(),
+516 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'launchpad'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/test/test_scenario.move:370:47
+    │
+370 │ public fun ctx(scenario: &mut Scenario): &mut TxContext {
+    │                                               --------- Given: 'sui::tx_context::TxContext'
+    │
+    ┌─ ./sources/manager.move:316:25
+    │
+316 │         launchpad: &mut Launchpad,
+    │                         --------- Expected: 'launchpad::launchpad::Launchpad'
+
+error[E04007]: incompatible types
+    ┌─ ./tests/launchpad_tests.move:508:13
+    │
+508 │ ╭             launch_manager::mint_with_kiosk<Nft>(
+509 │ │                 &mut launch,
+510 │ │                 nft,
+511 │ │                 payment,
+    · │
+514 │ │                 &mut launchpad,
+    │ │                 -------------- Given: '&mut launchpad::launchpad::Launchpad'
+515 │ │                 scen.ctx(),
+516 │ │             );
+    │ ╰─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. Invalid argument for parameter 'metadata_id'
+    │
+    ┌─ ./sources/manager.move:315:22
+    │
+315 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./tests/launchpad_tests.move:508:13
+    │
+508 │ ╭               launch_manager::mint_with_kiosk<Nft>(
+    │ │ ╭─────────────────────────────────────────────────'
+509 │ │ │                 &mut launch,
+510 │ │ │                 nft,
+511 │ │ │                 payment,
+    · │ │
+515 │ │ │                 scen.ctx(),
+516 │ │ │             );
+    │ ╰─│─────────────^ Invalid call of 'launchpad::launch_manager::mint_with_kiosk'. The call expected 8 argument(s) but got 7
+    │   ╰─────────────' Found 7 argument(s) here
+    │
+    ┌─ ./sources/manager.move:309:16
+    │
+309 │     public fun mint_with_kiosk<T: key + store>(
+    │                --------------- Expected 8 argument(s)
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:553:9
+    │
+553 │         assert_eq(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:585:9
+    │
+585 │         assert_eq(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:618:9
+    │
+618 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:637:9
+    │
+637 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:642:9
+    │
+642 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:672:9
+    │
+672 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:676:9
+    │
+676 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:706:9
+    │
+706 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:710:9
+    │
+710 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:740:9
+    │
+740 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:744:9
+    │
+744 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:752:9
+    │
+752 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:756:9
+    │
+756 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:762:9
+    │
+762 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W04037]: deprecated usage
+    ┌─ ./tests/launchpad_tests.move:766:9
+    │
+766 │         assert_eq(
+    │         ^^^^^^^^^ The function 'sui::test_utils::assert_eq' is deprecated: Use `std::unit_test::assert_eq!` for better error messages
+    │
+    = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./sources/manager.move:352:13
+    │
+338 │         ctx: &mut TxContext,
+    │              -------------- Given: '&mut sui::tx_context::TxContext'
+    ·
+352 │             launch.mint_impl(launchpad, &item, payment, clock, ctx);
+    │             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Invalid call of 'launchpad::launch_manager::mint_impl'. Invalid argument for parameter 'metadata_id'
+    ·
+672 │         metadata_id: String,
+    │                      ------ Expected: 'std::string::String'
+
+error[E04016]: too few arguments
+    ┌─ ./sources/manager.move:352:13
+    │
+352 │             launch.mint_impl(launchpad, &item, payment, clock, ctx);
+    │             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    │             │               │
+    │             │               Found 6 argument(s) here
+    │             Invalid call of 'launchpad::launch_manager::mint_impl'. The call expected 7 argument(s) but got 6
+    ·
+666 │     fun mint_impl<T: key + store>(
+    │         --------- Expected 7 argument(s)
+
+warning[W09002]: unused variable
+    ┌─ ./sources/manager.move:672:9
+    │
+672 │         metadata_id: String,
+    │         ^^^^^^^^^^^ Unused parameter 'metadata_id'. Consider removing or prefixing with an underscore: '_metadata_id'
+    │
+    = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04001]: restricted visibility
+    ┌─ ./sources/manager.move:676:9
+    │
+676 │         launchpad.launch.assert_not_paused();
+    │         ^^^^^^^^^^^^^^^^ Invalid access of field 'launch' on the struct 'launchpad::launchpad::Launchpad'. The field 'launch' can only be accessed within the module 'launchpad::launchpad' since it defines 'Launchpad'
+
+error[E03010]: unbound field
+    ┌─ ./sources/manager.move:676:9
+    │
+676 │         launchpad.launch.assert_not_paused();
+    │         ^^^^^^^^^^^^^^^^ Unbound field 'launch' in 'launchpad::launchpad::Launchpad'
+
+warning[W04037]: deprecated usage
+   ┌─ ./sources/utils.move:14:28
+   │
+14 │         string::from_ascii(get_with_original_ids<T>().into_string())
+   │                            ^^^^^^^^^^^^^^^^^^^^^ The function 'std::type_name::get_with_original_ids' is deprecated: Renamed to `with_original_ids` for clarity.
+   │
+   = This warning can be suppressed with '#[allow(deprecated_usage)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+error[E04007]: incompatible types
+    ┌─ ./sources/launchpad.move:221:9
+    │
+220 │     public(package) fun add_metadata(self: &mut Launchpad, id: String) {
+    │                                                 --------- Given: 'launchpad::launchpad::Launchpad'
+221 │         sui::dynamic_field::add<String, bool>(&self, id, true);
+    │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Invalid call of 'sui::dynamic_field::add'. Invalid argument for parameter 'object'
+    │
+    ┌─ /home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework/sources/dynamic_field.move:40:18
+    │
+ 40 │     object: &mut UID,
+    │                  --- Expected: 'sui::object::UID'
+
+error[E04004]: expected a single non-reference type
+    ┌─ ./sources/launchpad.move:221:47
+    │
+220 │     public(package) fun add_metadata(self: &mut Launchpad, id: String) {
+    │                                            -------------- Expected a single non-reference type, but found: '&mut launchpad::launchpad::Launchpad'
+221 │         sui::dynamic_field::add<String, bool>(&self, id, true);
+    │                                               ^^^^^ Invalid borrow
+
+Failed to build Move modules: Compilation error.
+

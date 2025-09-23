@@ -1,6 +1,6 @@
 module launchpad::launchpad {
-    use access_control::access_control::RoleCap;
-    use launchpad::{error, roles::Admin, utils::withdraw_balance};
+    use access_control::access_control::{RoleCap, SRoles};
+    use launchpad::{error, roles::{Admin, ROLES}, utils::withdraw_balance};
     use std::string::String;
     use sui::{
         balance::{Self, Balance},
@@ -103,11 +103,24 @@ module launchpad::launchpad {
 
     // === Admin Functions ===
 
-    public fun set_base_fee(launchpad: &mut Launchpad, _: &RoleCap<Admin>, fee: u64) {
+    public fun set_base_fee(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        fee: u64,
+    ) {
+        s_roles.has_cap_access(cap);
         launchpad.base_fee_percentage = fee;
     }
 
-    public fun set_custom_fee(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID, fee: u64) {
+    public fun set_custom_fee(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        launch: ID,
+        fee: u64,
+    ) {
+        s_roles.has_cap_access(cap);
         assert!(launchpad.launch_ids.contains(launch), error::launchNotFound!());
         if (launchpad.custom_fee_percentage.contains(launch)) {
             let old_fee = launchpad.custom_fee_percentage.borrow_mut(launch);
@@ -119,10 +132,12 @@ module launchpad::launchpad {
     /// Once approved, launch creator can launch the launch.
     public fun approve_launch(
         launchpad: &mut Launchpad,
-        _: &RoleCap<Admin>,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
         launch: ID,
         custom_fee: Option<u64>,
     ) {
+        s_roles.has_cap_access(cap);
         launchpad.assert_launch_exists(launch);
         launchpad.assert_launch_state_pending(launch);
 
@@ -140,7 +155,13 @@ module launchpad::launchpad {
 
     /// Reject a launch.
     /// Once rejected, launch creator cannot launch the launch.
-    public fun reject_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+    public fun reject_launch(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        launch: ID,
+    ) {
+        s_roles.has_cap_access(cap);
         launchpad.assert_launch_exists(launch);
         launchpad.assert_launch_state_pending(launch);
 
@@ -153,7 +174,13 @@ module launchpad::launchpad {
 
     /// Pause a launch by admin.
     /// Can only be called if the launch is approved.
-    public fun pause_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+    public fun pause_launch(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        launch: ID,
+    ) {
+        s_roles.has_cap_access(cap);
         launchpad.assert_launch_exists(launch);
 
         let state = &mut launchpad.launch_ids[launch];
@@ -166,7 +193,13 @@ module launchpad::launchpad {
 
     /// Resume a launch by admin.
     /// Can only be called if the launch is paused.
-    public fun resume_launch(launchpad: &mut Launchpad, _: &RoleCap<Admin>, launch: ID) {
+    public fun resume_launch(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        launch: ID,
+    ) {
+        s_roles.has_cap_access(cap);
         launchpad.assert_launch_exists(launch);
 
         let state = &mut launchpad.launch_ids[launch];
@@ -178,11 +211,19 @@ module launchpad::launchpad {
     }
 
     /// Withdraw the balance from the launchpad by admin.
-    public fun withdraw(launchpad: &mut Launchpad, _: &RoleCap<Admin>, ctx: &mut TxContext) {
+    public fun withdraw(
+        launchpad: &mut Launchpad,
+        s_roles: &SRoles<ROLES>,
+        cap: &RoleCap<Admin>,
+        ctx: &mut TxContext,
+    ) {
+        s_roles.has_cap_access(cap);
         withdraw_balance(&mut launchpad.balance, ctx)
     }
 
-    entry fun migrate(self: &mut Launchpad, _: &RoleCap<Admin>) {
+    entry fun migrate(self: &mut Launchpad, s_roles: &SRoles<ROLES>, cap: &RoleCap<Admin>) {
+        s_roles.has_cap_access(cap);
+
         assert!(self.version < VERSION, error::notUpgraded!());
         self.version = VERSION;
     }
@@ -217,6 +258,10 @@ module launchpad::launchpad {
         coin::put(&mut launchpad.balance, fee)
     }
 
+    public(package) fun add_metadata(self: &mut Launchpad, id: String) {
+        sui::dynamic_field::add(&mut self.id, id, true);
+    }
+
     // === Package Functions: asserts
 
     public(package) fun assert_launch_approved(launchpad: &Launchpad, launch: ID) {
@@ -228,6 +273,10 @@ module launchpad::launchpad {
 
     public(package) fun assert_launch_not_paused(launchpad: &Launchpad, launch: ID) {
         assert!(launchpad.launch_state(launch) != LaunchpadState::Paused, error::launchPaused!());
+    }
+
+    public(package) fun assert_metadata_not_used(self: &Launchpad, metadata_id: String) {
+        assert!(!sui::dynamic_field::exists_(&self.id, metadata_id), error::metadataAlreadyUsed!());
     }
 
     // === Private Functions ===

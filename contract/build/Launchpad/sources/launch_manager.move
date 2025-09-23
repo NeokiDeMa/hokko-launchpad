@@ -124,6 +124,7 @@ module launchpad::launch_manager {
     public struct ItemMintedEvent has copy, drop {
         launch: ID,
         item: ID,
+        metadata_id: String,
         address: address,
     }
     // === Init ===
@@ -241,6 +242,7 @@ module launchpad::launch_manager {
             custom_price: 0,
             custom_supply: 0,
         };
+
         let creator = roles::new_creator(launch.id.to_inner(), ctx);
 
         if (
@@ -311,6 +313,7 @@ module launchpad::launch_manager {
         payment: Coin<SUI>,
         policy: &TransferPolicy<T>,
         clock: &Clock,
+        metadata_id: String,
         launchpad: &mut Launchpad,
         ctx: &mut TxContext,
     ) {
@@ -318,7 +321,7 @@ module launchpad::launch_manager {
         launch.assert_kiosk_enabled();
         let sender = ctx.sender();
         let (mut kiosk, cap) = kiosk::new(ctx);
-        launch.mint_impl(launchpad, &item, payment, clock, ctx);
+        launch.mint_impl(launchpad, &item, payment, clock, metadata_id, ctx);
         kiosk.lock(&cap, policy, item);
 
         p_kiosk::create_for(&mut kiosk, cap, sender, ctx);
@@ -331,6 +334,7 @@ module launchpad::launch_manager {
         payments: vector<Coin<SUI>>,
         policy: &TransferPolicy<T>,
         clock: &Clock,
+        metadata_id: String,
         launchpad: &mut Launchpad,
         auth: &Authentication<K>,
         ctx: &mut TxContext,
@@ -347,7 +351,7 @@ module launchpad::launch_manager {
 
         let (mut kiosk, cap) = kiosk::new(ctx);
         items.zip_do!(payments, |item, payment| {
-            launch.mint_impl(launchpad, &item, payment, clock, ctx);
+            launch.mint_impl(launchpad, &item, payment, clock, metadata_id, ctx);
             kiosk.lock(&cap, policy, item);
         });
 
@@ -667,8 +671,10 @@ module launchpad::launch_manager {
         item: &T,
         mut payment: Coin<SUI>,
         clock: &Clock,
+        metadata_id: String,
         ctx: &mut TxContext,
     ) {
+        launchpad.assert_metadata_not_used(metadata_id);
         launch.assert_not_paused();
         launchpad.assert_launch_not_paused(launch.id.to_inner());
         launchpad.assert_launch_approved(launch.id.to_inner());
@@ -722,11 +728,13 @@ module launchpad::launch_manager {
         launch.top_up(payment);
 
         launch.items.add(object::id(item), true);
+        launchpad.add_metadata(metadata_id);
 
         emit(ItemMintedEvent {
             launch: launch.id.to_inner(),
             item: object::id(item),
             address: sender,
+            metadata_id,
         });
     }
 

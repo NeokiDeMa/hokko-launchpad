@@ -1,0 +1,390 @@
+Starting language server '/home/carl/.sui/bin/move-analyzer' communicating via stdio...
+linting level Default
+starting symbolicator runner loop
+auto imports during auto-completion enabled: true
+inlay type hints enabled: true
+inlay param hints enabled: true
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+symbolication started
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+code_action_request: Request { id: RequestId(I32(2)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(0), "character": Number(0)}, "end": Object {"line": Number(0), "character": Number(0)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+code_action_request: Request { id: RequestId(I32(5)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(36), "character": Number(46)}, "end": Object {"line": Number(36), "character": Number(46)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+code_action_request: Request { id: RequestId(I32(6)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(38), "character": Number(5)}, "end": Object {"line": Number(38), "character": Number(5)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+From https://github.com/MystenLabs/sui
+ + 7360d7b0...d8d697fa akichidis/ping-transaction-client-pool -> origin/akichidis/ping-transaction-client-pool  (forced update)
+ + 07d05acc...e1592d8a akichidis/ping-transaction-client-replace-moving-window -> origin/akichidis/ping-transaction-client-replace-moving-window  (forced update)
+ + 5b03b41a...09430168 akichidis/ping-transaction-latency-checks -> origin/akichidis/ping-transaction-latency-checks  (forced update)
+ * [new branch]        akichidis/ping-transaction-latency-checks-exp -> origin/akichidis/ping-transaction-latency-checks-exp
+ * [new branch]        amnn/gql-coin-registry -> origin/amnn/gql-coin-registry
+ * [new branch]        aschran/aa-pre         -> origin/aschran/aa-pre
+ + d477a2d2...92351983 aw/replay-config-file  -> origin/aw/replay-config-file  (forced update)
+   30fb1169..f144df41  bella-ciao             -> origin/bella-ciao
+ * [new branch]        cg/graphql-cors        -> origin/cg/graphql-cors
+ * [new branch]        ds/chore-e2e           -> origin/ds/chore-e2e
+ * [new branch]        emma/grpc-sub-indexer  -> origin/emma/grpc-sub-indexer
+ * [new branch]        emma/grpc-sub-indexer-gap -> origin/emma/grpc-sub-indexer-gap
+ + 8d04f3e6...ccbf92c4 gh-pages               -> origin/gh-pages  (forced update)
+ * [new branch]        graphql-alt-json-input-simulate-transaction -> origin/graphql-alt-json-input-simulate-transaction
+ * [new branch]        graphql_request_id     -> origin/graphql_request_id
+ + 26159548...e5a3a0a8 henrychen/dvx-1559-available-range -> origin/henrychen/dvx-1559-available-range  (forced update)
+ * [new branch]        jessiemongeon1-patch-2 -> origin/jessiemongeon1-patch-2
+ * [new branch]        johntest               -> origin/johntest
+   f4971a44..9b4bcb55  main                   -> origin/main
+ + 53c8eb3b...2cd6aa12 mainnet                -> origin/mainnet  (forced update)
+ * [new branch]        mlogan-ab-backward-compat -> origin/mlogan-ab-backward-compat
+ + 44e9e15f...aa33d1fd more_th_configs        -> origin/more_th_configs  (forced update)
+ + 9492e886...d020013e steka-aes              -> origin/steka-aes  (forced update)
+ + a65b24b9...caf392cc sui-pkg-alt            -> origin/sui-pkg-alt  (forced update)
+   91397457..2cd6aa12  testnet                -> origin/testnet
+ * [new branch]        tzakian/bc-adapt-7     -> origin/tzakian/bc-adapt-7
+ * [new branch]        tzakian/bc-adapt-8     -> origin/tzakian/bc-adapt-8
+ * [new branch]        tzakian/module-extensions-ts -> origin/tzakian/module-extensions-ts
+ + e5d158bf...3ac8ff85 xun/address-balance-eager-withdraw-scheduler -> origin/xun/address-balance-eager-withdraw-scheduler  (forced update)
+ + 383c57d0...8f4974a4 xun/balance-withdraw-scheduler-add-reconfigure -> origin/xun/balance-withdraw-scheduler-add-reconfigure  (forced update)
+ * [new branch]        xun/balance-withdraw-scheduler-send-accumulator-version -> origin/xun/balance-withdraw-scheduler-send-accumulator-version
+ * [new tag]           sui_v1.56.2_1757978780_release -> sui_v1.56.2_1757978780_release
+ * [new tag]           sui_v1.57.0_1757970281_rel_notes -> sui_v1.57.0_1757970281_rel_notes
+ * [new tag]           sui_v1.57.0_1758099925_rel_notes -> sui_v1.57.0_1758099925_rel_notes
+ * [new tag]           testnet-v1.56.2        -> testnet-v1.56.2
+ * [new tag]           sui_v1.57.0_1757981987_rel_notes -> sui_v1.57.0_1757981987_rel_notes
+ * [new tag]           sui_v1.57.0_1757987999_ci -> sui_v1.57.0_1757987999_ci
+ * [new tag]           sui_v1.57.0_1757992478_rel_notes -> sui_v1.57.0_1757992478_rel_notes
+ * [new tag]           sui_v1.57.0_1758002834_rel_notes -> sui_v1.57.0_1758002834_rel_notes
+ * [new tag]           sui_v1.57.0_1758005046_ci -> sui_v1.57.0_1758005046_ci
+ * [new tag]           sui_v1.57.0_1758024515_rel_notes -> sui_v1.57.0_1758024515_rel_notes
+ * [new tag]           sui_v1.57.0_1758035129_rel_notes -> sui_v1.57.0_1758035129_rel_notes
+ * [new tag]           sui_v1.57.0_1758046036_rel_notes -> sui_v1.57.0_1758046036_rel_notes
+ * [new tag]           sui_v1.57.0_1758048703_ci -> sui_v1.57.0_1758048703_ci
+ * [new tag]           sui_v1.57.0_1758056695_rel_notes -> sui_v1.57.0_1758056695_rel_notes
+ * [new tag]           sui_v1.57.0_1758068441_rel_notes -> sui_v1.57.0_1758068441_rel_notes
+ * [new tag]           sui_v1.57.0_1758078816_rel_notes -> sui_v1.57.0_1758078816_rel_notes
+ * [new tag]           sui_v1.57.0_1758085024_ci -> sui_v1.57.0_1758085024_ci
+ * [new tag]           sui_v1.57.0_1758089274_rel_notes -> sui_v1.57.0_1758089274_rel_notes
+ * [new tag]           sui_v1.57.0_1758094853_ci -> sui_v1.57.0_1758094853_ci
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+no cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+pre-compiling dep MoveStdlib
+inserting new dep into cache for "/home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/move-stdlib"
+pre-compiling dep Sui
+inserting new dep into cache for "/home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-framework"
+pre-compiling dep SuiSystem
+inserting new dep into cache for "/home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/sui-system"
+pre-compiling dep Bridge
+inserting new dep into cache for "/home/carl/.move/https___github_com_MystenLabs_sui_git_664b05b3b047c5bb03979d093660176176ea6175/crates/sui-framework/packages/bridge"
+pre-compiling dep auth_bridge
+inserting new dep into cache for "/home/carl/.move/https___github_com_ReforgeLab_auth-bridge_git_main/contract"
+pre-compiling dep access_control
+inserting new dep into cache for "/home/carl/.move/https___github_com_Reblixt_Sui-Access-Control_git_main/"
+pre-compiling dep Kiosk
+inserting new dep into cache for "/home/carl/.move/https___github_com_MystenLabs_apps_git_main/kiosk"
+compiled to parsed AST
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+handling completion request
+about to send completion response with 0 items
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+handling completion request
+about to send completion response with 0 items
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+handling completion request
+about to send completion response with 0 items
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+code_action_request: Request { id: RequestId(I32(14)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(39), "character": Number(9)}, "end": Object {"line": Number(39), "character": Number(9)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+compiled to typed AST
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+compiling to CFGIR
+compiled to CFGIR
+code_action_request: Request { id: RequestId(I32(18)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(37), "character": Number(46)}, "end": Object {"line": Number(37), "character": Number(46)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+compilation complete in: 10.078729575s
+analysis complete in 1.017026554s
+get_symbols load complete
+Retrying compilation for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+Force-reading from lock file
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+found cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+compiled to parsed AST
+compiled to typed AST
+compiling to CFGIR
+compiled to CFGIR
+compilation complete in: 812.489356ms
+analysis complete in 839.448376ms
+get_symbols load complete
+symbolication finished
+symbolication started
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+Force-reading from lock file
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+found cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+compiled to parsed AST
+compiled to typed AST
+compiling to CFGIR
+compiled to CFGIR
+code_action_request: Request { id: RequestId(I32(19)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(37), "character": Number(46)}, "end": Object {"line": Number(37), "character": Number(46)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+compilation complete in: 432.674454ms
+analysis complete in 672.998112ms
+get_symbols load complete
+symbolication finished
+code_action_request: Request { id: RequestId(I32(20)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(37), "character": Number(46)}, "end": Object {"line": Number(37), "character": Number(46)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+code_action_request: Request { id: RequestId(I32(22)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(0), "character": Number(0)}, "end": Object {"line": Number(0), "character": Number(0)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+code_action_request: Request { id: RequestId(I32(24)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(37), "character": Number(46)}, "end": Object {"line": Number(37), "character": Number(46)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+code_action_request: Request { id: RequestId(I32(26)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(39), "character": Number(9)}, "end": Object {"line": Number(39), "character": Number(9)}}, "context": Object {"diagnostics": Array [Object {"range": Object {"start": Object {"line": Number(39), "character": Number(0)}, "end": Object {"line": Number(39), "character": Number(9)}}, "message": String("Unexpected 'anthentha'"), "severity": Number(1), "relatedInformation": Array [Object {"message": String("Expected a module member: 'use', 'friend', 'const', 'fun', 'struct', or 'enum'"), "location": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"), "range": Object {"start": Object {"line": Number(39), "character": Number(0)}, "end": Object {"line": Number(39), "character": Number(9)}}}}]}], "triggerKind": Number(2)}} }
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+symbolication started
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+Force-reading from lock file
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+found cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+compiled to parsed AST
+compiled to typed AST
+compiling to CFGIR
+compiled to CFGIR
+text document notification
+scheduling run for "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+scheduled run
+text document notification handled
+handling completion request
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+Force-reading from lock file
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+found cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+compiled to parsed AST
+compiled to typed AST
+compiling to CFGIR
+compiled to CFGIR
+compilation complete in: 425.125949ms
+compilation complete in: 569.251766ms
+computed cursor loc
+analysis complete in 573.027564ms
+get_symbols load complete
+symbolication finished
+analysis complete in 796.415213ms
+get_symbols load complete
+cursor completion
+no relevant cursor leader
+looking for name access chains
+no access chain
+looking for use declarations
+no use declaration
+checking default items
+about to send completion response with 53 items
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+symbolication started
+symbolicating "/home/carl/Coding/4plus/hokko-launchpad/contract"
+Force-reading from lock file
+code_action_request: Request { id: RequestId(I32(30)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(39), "character": Number(11)}, "end": Object {"line": Number(39), "character": Number(11)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+on_document_symbol_request: "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+inlay_hints_request (types: true, params: true): "/home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move"
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field names found. Expected one of [name, authors, license, edition, flavor], but found 'published-at', 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+Warning: unknown field name found. Expected one of [name, authors, license, edition, flavor], but found 'version'
+found cached deps for "/home/carl/Coding/4plus/hokko-launchpad/contract"
+compiled to parsed AST
+compiled to typed AST
+compiling to CFGIR
+compiled to CFGIR
+code_action_request: Request { id: RequestId(I32(34)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(39), "character": Number(11)}, "end": Object {"line": Number(39), "character": Number(11)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }
+compilation complete in: 405.128323ms
+analysis complete in 644.231481ms
+get_symbols load complete
+symbolication finished
+code_action_request: Request { id: RequestId(I32(35)), method: "textDocument/codeAction", params: Object {"textDocument": Object {"uri": String("file:///home/carl/Coding/4plus/hokko-launchpad/contract/sources/launchpad.move")}, "range": Object {"start": Object {"line": Number(39), "character": Number(11)}, "end": Object {"line": Number(39), "character": Number(11)}}, "context": Object {"diagnostics": Array [], "triggerKind": Number(2)}} }

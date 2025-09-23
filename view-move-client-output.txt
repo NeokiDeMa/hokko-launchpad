@@ -1,0 +1,13 @@
+INFO [9/17/2025, 11:46:25 AM]: mysten.move version 1.0.28
+INFO [9/17/2025, 11:46:25 AM]: Creating extension context
+INFO [9/17/2025, 11:46:25 AM]: configuration: {"auto-imports":true,"force-bundled":false,"inlay-hints":{"type":true,"param":true},"lint":"default","server":{"path":null},"sui":{"path":null},"trace":{"server":"off"}}
+INFO [9/17/2025, 11:46:25 AM]: Installing language server
+INFO [9/17/2025, 11:46:25 AM]: Bundled version: 1.57.0
+INFO [9/17/2025, 11:46:25 AM]: Standalone version: null
+INFO [9/17/2025, 11:46:25 AM]: CLI version: 1.56.1
+INFO [9/17/2025, 11:46:25 AM]: Setting v1.56.1 of CLI move-analyzer installed at 'sui' as the highest one
+INFO [9/17/2025, 11:46:25 AM]: Installing bundled move-analyzer as the highest version available: v1.57.0
+INFO [9/17/2025, 11:46:25 AM]: Creating directory for move-analyzer binary at 'file:///home/carl/.sui/bin'
+INFO [9/17/2025, 11:46:25 AM]: Copying move-analyzer binary to 'file:///home/carl/.sui/bin/move-analyzer'
+INFO [9/17/2025, 11:46:25 AM]: Successfuly installed move-analyzer
+INFO [9/17/2025, 11:46:25 AM]: Starting client...

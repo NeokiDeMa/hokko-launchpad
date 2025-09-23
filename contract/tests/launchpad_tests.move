@@ -6,14 +6,14 @@ module launchpad::launchpad_tests {
         launchpad::{Self, Launchpad},
         roles::{Self, Creator, ROLES, Admin}
     };
-    use std::{debug::print, string::String, u64::pow};
+    use std::{debug::print, string::String, u64::pow, unit_test::assert_eq};
     use sui::{
         clock::{Self, Clock},
         coin::{Self, Coin},
         package::Publisher,
         sui::SUI,
         test_scenario::{Self as scen, Scenario},
-        test_utils::{assert_eq, destroy}
+        test_utils::destroy
     };
 
     const Bob: address = @0x456;
@@ -30,6 +30,67 @@ module launchpad::launchpad_tests {
         name: String,
     }
 
+    #[test, expected_failure(abort_code = 211)]
+    fun abort_when_same_metadat_id_used_twice() {
+        let (
+            mut scen,
+            publisher,
+            mut clock,
+            mut launchpad,
+            mut launch,
+            creator,
+            owner_cap,
+            admin_cap,
+            s_roles,
+        ) = setup();
+        let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
+        let mut coin = coin::mint_for_testing<SUI>(std::u64::pow(120, 9), scen.ctx());
+        launchpad.approve_launch(&s_roles, &admin_cap, object::id(&launch), option::none());
+        // Check initial phase
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+
+        // Move clock to public phase
+        let new_timestamp = clock.timestamp_ms() + 2700;
+        clock.set_for_testing(new_timestamp);
+        scen.next_tx(Alice);
+
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
+
+        let (nfts, payments) = create_nfts_and_payments(
+            10,
+            &mut coin,
+            to_mist(4),
+            &mut scen,
+        );
+        nfts.zip_do!(payments, |nft, payment| {
+            launch_manager::mint_with_kiosk<Nft>(
+                &mut launch,
+                nft,
+                payment,
+                &policy,
+                &clock,
+                b"same_id".to_string(),
+                &mut launchpad,
+                scen.ctx(),
+            );
+        });
+
+        // Attempt to mint more than the supply
+
+        destroy(s_roles);
+        destroy(coin);
+        destroy(policy);
+        destroy(tp_cap);
+        destroy(creator);
+        destroy(launch);
+        destroy(publisher);
+        destroy(clock);
+        destroy(launchpad);
+        destroy(owner_cap);
+        destroy(admin_cap);
+        scen.end();
+    }
+
     #[test, expected_failure(abort_code = 113)]
     fun abort_when_exceeding_supply_mint_ended() {
         let (
@@ -41,25 +102,25 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
         let mut coin = coin::mint_for_testing<SUI>(std::u64::pow(120, 9), scen.ctx());
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
-        // Check initial phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
         );
+        // Check initial phase
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
         // Move clock to public phase
         let new_timestamp = clock.timestamp_ms() + 2700;
         clock.set_for_testing(new_timestamp);
         scen.next_tx(Alice);
 
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::public_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
 
         let (nfts, payments) = create_nfts_and_payments(
             10,
@@ -67,14 +128,16 @@ module launchpad::launchpad_tests {
             to_mist(4),
             &mut scen,
         );
-
+        let mut metadata_id: u64 = 0;
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
@@ -89,17 +152,20 @@ module launchpad::launchpad_tests {
         );
 
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
         });
 
+        destroy(s_roles);
         destroy(coin);
         destroy(policy);
         destroy(tp_cap);
@@ -124,16 +190,14 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
         let mut coin = coin::mint_for_testing<SUI>(to_mist(100), scen.ctx());
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(&s_roles, &admin_cap, object::id(&launch), option::none());
         // Check initial phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
         // Move clock to whitelist phase
         let new_timestamp = clock.timestamp_ms() + 10;
@@ -141,10 +205,7 @@ module launchpad::launchpad_tests {
         launch.update_whitelist(&creator, vector[Alice], vector[10]);
         scen.next_tx(Alice);
 
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
 
         let (nfts, payments) = create_nfts_and_payments(
             11,
@@ -152,18 +213,22 @@ module launchpad::launchpad_tests {
             to_mist(1),
             &mut scen,
         );
+        let mut metadata_id: u64 = 0;
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
         });
 
+        destroy(s_roles);
         destroy(coin);
         destroy(policy);
         destroy(tp_cap);
@@ -188,13 +253,24 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
         let mut coin = coin::mint_for_testing<SUI>(to_mist(100), scen.ctx());
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
 
-        launchpad.set_custom_fee(&admin_cap, object::id(&launch), 50);
+        launchpad.set_custom_fee(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            50,
+        );
 
         let custom_fee = launchpad.fee_percentage(object::id(&launch));
         print(&b"custom_fee: ".to_string());
@@ -203,19 +279,13 @@ module launchpad::launchpad_tests {
         launch.update_whitelist(&creator, vector[Alice], vector[16]);
 
         // Check initial phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
         // Move clock to whitelist phase
         let new_timestamp = clock.timestamp_ms() + 100;
         clock.set_for_testing(new_timestamp);
         scen.next_tx(Alice);
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
 
         let (nfts, payments) = create_nfts_and_payments(
             10,
@@ -224,13 +294,16 @@ module launchpad::launchpad_tests {
             &mut scen,
         );
 
+        let mut metadata_id: u64 = 0;
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
@@ -249,20 +322,22 @@ module launchpad::launchpad_tests {
 
         scen.next_tx(Alice);
         let alice_coin = scen.take_from_address<Coin<SUI>>(Alice);
-        assert_eq(alice_coin.value(), dot_five_percent);
+        assert_eq!(alice_coin.value(), dot_five_percent);
 
         // Check whitelist phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
         // Withdraw from launchpad
         scen.next_tx(Hokko);
-        launchpad.withdraw(&admin_cap, scen.ctx());
+        launchpad.withdraw(
+            &s_roles,
+            &admin_cap,
+            scen.ctx(),
+        );
         scen.next_tx(Hokko);
         let launchpad_coin = scen.take_from_address<Coin<SUI>>(Hokko);
-        assert_eq(launchpad_coin.value(), withdraw_amount - dot_five_percent);
+        assert_eq!(launchpad_coin.value(), withdraw_amount - dot_five_percent);
 
+        destroy(s_roles);
         destroy(coin);
         destroy(launchpad_coin);
         destroy(alice_coin);
@@ -289,27 +364,27 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
         let mut coin = coin::mint_for_testing<SUI>(to_mist(100), scen.ctx());
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
         launch.update_whitelist(&creator, vector[Alice], vector[16]);
 
         // Check initial phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
         // Move clock to whitelist phase
         let new_timestamp = clock.timestamp_ms() + 100;
         clock.set_for_testing(new_timestamp);
         scen.next_tx(Alice);
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
 
         let (nfts, payments) = create_nfts_and_payments(
             10,
@@ -317,13 +392,16 @@ module launchpad::launchpad_tests {
             to_mist(1),
             &mut scen,
         );
+        let mut metadata_id: u64 = 0;
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
@@ -338,20 +416,21 @@ module launchpad::launchpad_tests {
 
         scen.next_tx(Alice);
         let alice_coin = scen.take_from_address<Coin<SUI>>(Alice);
-        assert_eq(alice_coin.value(), after_two_percent);
+        assert_eq!(alice_coin.value(), after_two_percent);
 
         // Check whitelist phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
         // Withdraw from launchpad
         scen.next_tx(Hokko);
-        launchpad.withdraw(&admin_cap, scen.ctx());
+        launchpad.withdraw(
+            &s_roles,
+            &admin_cap,
+            scen.ctx(),
+        );
         scen.next_tx(Hokko);
         let launchpad_coin = scen.take_from_address<Coin<SUI>>(Hokko);
-        assert_eq(launchpad_coin.value(), withdraw_amount - after_two_percent);
-
+        assert_eq!(launchpad_coin.value(), withdraw_amount - after_two_percent);
+        destroy(s_roles);
         destroy(coin);
         destroy(launchpad_coin);
         destroy(alice_coin);
@@ -378,6 +457,7 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
 
@@ -397,10 +477,10 @@ module launchpad::launchpad_tests {
         scen.next_tx(Alice);
 
         let (new_w_ts, new_c_ts, new_ts) = launch.get_start_timestamp_ms();
-        assert_eq(new_ts, start_timestamp_ms);
-        assert_eq(new_w_ts, whitelist_start_timestamp_ms);
-        assert_eq(new_c_ts, custom_start_timestamp_ms);
-
+        assert_eq!(new_ts, start_timestamp_ms);
+        assert_eq!(new_w_ts, whitelist_start_timestamp_ms);
+        assert_eq!(new_c_ts, custom_start_timestamp_ms);
+        destroy(s_roles);
         destroy(tp_cap);
         destroy(policy);
         destroy(admin_cap);
@@ -424,16 +504,19 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
         let (policy, tp_cap) = sui::transfer_policy::new<Nft>(&publisher, scen.ctx());
         let mut coin = coin::mint_for_testing<SUI>(to_mist(100), scen.ctx());
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
-        // Check initial phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
         );
+        // Check initial phase
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
         // Move clock to whitelist phase
         let new_timestamp = clock.timestamp_ms() + 8;
@@ -447,23 +530,23 @@ module launchpad::launchpad_tests {
             &mut scen,
         );
 
+        let mut metadata_id: u64 = 0;
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
         });
 
         // Check whitelist phase
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
 
         // Move clock to custom phase
         let new_timestamp = clock.timestamp_ms() + 1020;
@@ -477,19 +560,21 @@ module launchpad::launchpad_tests {
         );
 
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
         });
 
         // Check custom phase
-        assert_eq(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
 
         // Move clock to public phase
         let new_timestamp = clock.timestamp_ms() + 2040;
@@ -497,7 +582,7 @@ module launchpad::launchpad_tests {
         scen.next_tx(Alice);
 
         // Check public phase
-        assert_eq(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
         let (nfts, payments) = create_nfts_and_payments(
             3,
             &mut coin,
@@ -505,17 +590,20 @@ module launchpad::launchpad_tests {
             &mut scen,
         );
         nfts.zip_do!(payments, |nft, payment| {
+            metadata_id = metadata_id + 1;
             launch_manager::mint_with_kiosk<Nft>(
                 &mut launch,
                 nft,
                 payment,
                 &policy,
                 &clock,
+                metadata_id.to_string(),
                 &mut launchpad,
                 scen.ctx(),
             );
         });
 
+        destroy(s_roles);
         destroy(coin);
         destroy(policy);
         destroy(tp_cap);
@@ -540,9 +628,15 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
 
         let new_timestamp = clock.timestamp_ms() + 2060;
         // print(&new_timestamp);
@@ -550,8 +644,8 @@ module launchpad::launchpad_tests {
         clock.set_for_testing(new_timestamp);
         scen.next_tx(Alice);
 
-        assert_eq(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
-
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::public_phase_testing());
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -572,9 +666,15 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
 
         let new_timestamp = clock.timestamp_ms() + 1010;
         // print(&new_timestamp);
@@ -582,8 +682,9 @@ module launchpad::launchpad_tests {
         clock.set_for_testing(new_timestamp);
         scen.next_tx(Alice);
 
-        assert_eq(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::custom_phase_testing());
 
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -605,9 +706,15 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
 
         let new_timestamp = clock.timestamp_ms() + 10;
 
@@ -615,11 +722,9 @@ module launchpad::launchpad_tests {
         scen.next_tx(Alice);
         // print(&clock.timestamp_ms());
 
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::whitelist_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::whitelist_phase_testing());
 
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -632,18 +737,26 @@ module launchpad::launchpad_tests {
     //
     #[test]
     fun test_not_started_phase() {
-        let (scen, publisher, clock, launchpad, launch, creator, owner_cap, admin_cap) = setup();
+        let (
+            scen,
+            publisher,
+            clock,
+            launchpad,
+            launch,
+            creator,
+            owner_cap,
+            admin_cap,
+            s_roles,
+        ) = setup();
 
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
 
-        assert_eq(
+        assert_eq!(
             launchpad.launch_state(object::id(&launch)),
             launchpad::pending_launch_state_testing(),
         );
 
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -665,19 +778,19 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
-
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
-        assert_eq(
-            launchpad.launch_state(object::id(&launch)),
-            launchpad.launch_status_appoved(),
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
         );
 
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+        assert_eq!(launchpad.launch_state(object::id(&launch)), launchpad.launch_status_appoved());
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -699,19 +812,22 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.reject_launch(&admin_cap, object::id(&launch));
-
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
+        launchpad.reject_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
         );
-        assert_eq(
+
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+        assert_eq!(
             launchpad.launch_state(object::id(&launch)),
             launchpad::rejected_launch_state_testing(),
         );
 
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -733,41 +849,40 @@ module launchpad::launchpad_tests {
             creator,
             owner_cap,
             admin_cap,
+            s_roles,
         ) = setup();
 
-        launchpad.approve_launch(&admin_cap, object::id(&launch), option::none());
+        launchpad.approve_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
+            option::none(),
+        );
 
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
-        );
-        assert_eq(
-            launchpad.launch_state(object::id(&launch)),
-            launchpad.launch_status_appoved(),
-        );
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+        assert_eq!(launchpad.launch_state(object::id(&launch)), launchpad.launch_status_appoved());
 
         // Pause the launch
-        launchpad.pause_launch(&admin_cap, object::id(&launch));
-
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
+        launchpad.pause_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
         );
-        assert_eq(
+
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+        assert_eq!(
             launchpad.launch_state(object::id(&launch)),
             launchpad::paused_launch_state_testing(),
         );
 
-        launchpad.resume_launch(&admin_cap, object::id(&launch));
-        assert_eq(
-            launch.phase(&launchpad, &clock),
-            launch_manager::not_started_phase_testing(),
+        launchpad.resume_launch(
+            &s_roles,
+            &admin_cap,
+            object::id(&launch),
         );
-        assert_eq(
-            launchpad.launch_state(object::id(&launch)),
-            launchpad.launch_status_appoved(),
-        );
-
+        assert_eq!(launch.phase(&launchpad, &clock), launch_manager::not_started_phase_testing());
+        assert_eq!(launchpad.launch_state(object::id(&launch)), launchpad.launch_status_appoved());
+        destroy(s_roles);
         destroy(creator);
         destroy(launch);
         destroy(publisher);
@@ -798,8 +913,8 @@ module launchpad::launchpad_tests {
     //
     //     // let carol_allocation = table.borrow(Carol);
     //
-    //     assert_eq(*table.borrow(Carol), 2);
-    //     assert_eq(*table.borrow(Alice), 3);
+    //     assert_eq!(*table.borrow(Carol), 2);
+    //     assert_eq!(*table.borrow(Alice), 3);
     //
     //     destroy(table);
     //     scen.end();
@@ -920,6 +1035,7 @@ module launchpad::launchpad_tests {
         Creator,
         OwnerCap<ROLES>,
         RoleCap<Admin>,
+        SRoles<ROLES>,
     ) {
         let mut scen = scen::begin(Hokko);
         launchpad::test_init(scen.ctx());
@@ -942,9 +1058,7 @@ module launchpad::launchpad_tests {
         let creator = scen.take_from_address<Creator>(Alice);
         setup_whitelist(&mut launch, &creator);
 
-        destroy(s_roles);
-
-        (scen, package, clock, launchpad, launch, creator, owner_cap, admin_cap)
+        (scen, package, clock, launchpad, launch, creator, owner_cap, admin_cap, s_roles)
     }
 
     //

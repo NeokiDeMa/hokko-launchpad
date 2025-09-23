@@ -24,8 +24,8 @@
         "value": "13"
       },
       {
-        "type": "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97::nft::Config",
-        "value": "0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a"
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
       }
     ]
   },
@@ -58,8 +58,264 @@
         "value": "20"
       },
       {
-        "type": "0x13bf486069f8cc11d636d666612ac2180dd6e86bbea593f429505bddd6b1bc97::nft::Config",
-        "value": "0x01f4fc06ac9a9edd98d45ac4bc2618e7741bb09993d84aae381f432dee0d026a"
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #3",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft3.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Sunset Horizon"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Alien"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Silver Earring"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "25"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #4",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft4.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "Laser Eyes"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Crown"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Happy"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Forest"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "33"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #5",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft5.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Starry Night"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Zombie"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Diamond Ring"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "41"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #6",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft6.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "Sleepy Eyes"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Baseball Cap"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Confused"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Desert"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "50"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #7",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft7.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Volcano Eruption"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Ghost"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Sword"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "58"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #8",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft8.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "X-Ray Vision"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Fez"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Grinning"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Deep Ocean"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "66"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #9",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft9.png",
+    "reserveForCreator": true,
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Cosmic Void"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Dragon"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "Magic Wand"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "74"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
+    ]
+  },
+  {
+    "name": "My awesome NFT #10",
+    "description": "This colletion will rule the world",
+    "imageUrl": "https://example-image-url.com/nft10.png",
+    "reserveForCreator": false,
+    "attributes": [
+      {
+        "trait_type": "Eyes",
+        "value": "Hypnotic Eyes"
+      },
+      {
+        "trait_type": "Headwear",
+        "value": "Halo"
+      },
+      {
+        "trait_type": "Expression",
+        "value": "Scared"
+      },
+      {
+        "trait_type": "Environment",
+        "value": "Cloud Kingdom"
+      }
+    ],
+    "extraInputs": [
+      {
+        "type": "u64",
+        "value": "82"
+      },
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
       }
     ]
   }
