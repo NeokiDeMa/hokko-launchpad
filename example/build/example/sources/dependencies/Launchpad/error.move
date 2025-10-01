@@ -155,4 +155,7 @@ module launchpad::error {
     public(package) macro fun wrongVersion(): u64 {
         210
     }
+    public(package) macro fun metadataAlreadyUsed(): u64 {
+        211
+    }
 }

@@ -33,8 +33,17 @@ Launchpad = { git = "https://github.com/NeokiDeMa/hokko-launchpad.git", subdir =
 # TransferPolicyCap 0x2f62e27540d2a8dcdd4019fa68e87719afdce588b01d1ac1e088de9cecc14776
 # Publisher 0xb2fc5d210d6cf8c71a5b684500941605bddf1f4b06d943ac9e67adbdecd15bd5
 # Config 0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f
+# example = "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5"
+
+# Version 3
+# Upgradecap 0x9f3b2980637ea4222be9bb96737b38ae4af4febb38a8356d0fd5cd8b56fbb47c
+# MintCap 0x816a56f255bbca725c1abb8d29a3d2e50cf9b1f1ce3ab7e78e66a730eceb56df
+# TransferPolicy 0x7d2d30df583a3821e39c98da4e437812d46cdcae8d9d040b5b2f0e26f04568a0
+# TransferPolicyCap 0x70d1b07e5594aa77375bd36eb380240c0502f84b718b33849053794c4cae634e
+# Publisher 0xda5c56fb65c623e32bcf87590bc522051d20ce932f2a68595f6e06d49561aa55
+# Config 0x745876610f497e1b3c6cd6113b275d6263ce785431403d8f6b7a5d076925c3a1
 [addresses]
-example = "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5"
+example = "0xa760a12f086fbb98687427e2524cf218f752c43fac3ffdc0b918284b23a2765d"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.

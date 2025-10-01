@@ -1,5 +1,5 @@
 module launchpad::utils {
-    use std::{string::{Self, String}, type_name::get_with_original_ids};
+    use std::{string::{Self, String}, type_name::with_original_ids};
     use sui::{balance::Balance, coin::{Self, Coin}, pay::keep};
 
     const EInvalidPayment: u64 = 0;
@@ -11,7 +11,7 @@ module launchpad::utils {
 
     /// Convert a type T to a string.
     public(package) fun type_to_string<T>(): String {
-        string::from_ascii(get_with_original_ids<T>().into_string())
+        string::from_ascii(with_original_ids<T>().into_string())
     }
 
     public(package) fun payment_split_fee<T>(

@@ -1,6 +1,6 @@
 ### Guide for Integrating Your NFT Contract with Hokko Launchpad
 
-This guide outlines two primary ways to integrate your custom NFT contract with the Hokko Launchpad, providing flexibility based on your contract's design. In both approaches, strict adherence to the function signatures and argument order is crucial for successful integration.
+<!-- This guide outlines two primary ways to integrate your custom NFT contract with the Hokko Launchpad, providing flexibility based on your contract's design. In both approaches, strict adherence to the function signatures and argument order is crucial for successful integration. -->
 
 #### 1. Smart Contract Oriented Integration
 
@@ -19,6 +19,7 @@ public fun launchpad_mint(
     name: String,
     description: String,
     image_url: String,
+    metadata_id: String,
     trait_keys: vector<String>,
     value_keys: vector<String>,
     payment: Coin<SUI>,
@@ -46,6 +47,7 @@ public fun launchpad_mint(
         payment,
         policy,
         clock,
+        metadata_id,
         launchpad,
         ctx
     );
@@ -57,44 +59,44 @@ public fun launchpad_mint(
 1.  **`create_nft()`:** This placeholder represents your contract's internal function responsible for constructing the `Nft` object based on the provided metadata (`name`, `description`, `image_url`, `tarit_keys`, `value_keys`).
 2.  **`launch_manager::mint_with_kiosk`:** This function is provided by the Hokko Launchpad to handle the final steps of minting the NFT into the associated kiosk, applying the transfer policy, and interacting with the launchpad mechanics.
 
-#### 2. Client Focused Integration
-
-In this approach, your NFT contract focuses solely on the creation of the NFT object than store the mintcap in the Authentication module that Hokko is providing, and the Hokko client or a separate module handles the subsequent steps of placing it into the launchpad.
-
-**Requirements:**
-
-*   Your NFT contract must implement a public function named `create_nft`.
-*   This function *must* have the exact signature and argument order as shown below.
-*   **Optional:** If your NFT creation requires additional custom inputs, they would be appended to the end of the required arguments.
-
-````move
-// ...existing code...
-public fun create_nft(
-    mint_cap: &MintCap,
-    name: String,
-    description: String,
-    image_url: String,
-    trait_keys: vector<String>,
-    value_keys: vector<String>,
-    // Optional: Example of extra arguments from the JSON metadata
-    // custom_string: String,
-    // custom_bool: Bool,
-    // custom_u64: u64,
-    // custom_struct_ref_1: &0x1234::new_module::other_struct,
-    // custom_struct_ref_2: &0x5678::another_module::my_struct
-    ctx: &mut TxContext
-): Nft {
-    // Implement your custom logic to assemble your NFT here.
-    // Use the provided arguments, including any custom ones, to construct your NFT.
-    // This function should return the newly created Nft object.
-}
-````
-
-**Explanation:**
-
-1.  **`mint_cap: &MintCap`:** This capability object is typically required by NFT collection contracts to authorize the creation of new NFTs.
-2.  **NFT Construction:** Inside this function, you will write the logic to construct your specific `Nft` struct, populating it with the provided `name`, `description`, `image_url`, `tarit_keys`, `value_keys`, and any `custom_` arguments.
-3.  **Return `Nft`:** The function must return the fully assembled `Nft` object, which the Hokko Launchpad client will then use to mint.
+<!-- #### 2. Client Focused Integration -->
+<!---->
+<!-- In this approach, your NFT contract focuses solely on the creation of the NFT object than store the mintcap in the Authentication module that Hokko is providing, and the Hokko client or a separate module handles the subsequent steps of placing it into the launchpad. -->
+<!---->
+<!-- **Requirements:** -->
+<!---->
+<!-- *   Your NFT contract must implement a public function named `create_nft`. -->
+<!-- *   This function *must* have the exact signature and argument order as shown below. -->
+<!-- *   **Optional:** If your NFT creation requires additional custom inputs, they would be appended to the end of the required arguments. -->
+<!---->
+<!-- ````move -->
+<!-- // ...existing code... -->
+<!-- public fun create_nft( -->
+<!--     mint_cap: &MintCap, -->
+<!--     name: String, -->
+<!--     description: String, -->
+<!--     image_url: String, -->
+<!--     trait_keys: vector<String>, -->
+<!--     value_keys: vector<String>, -->
+<!--     // Optional: Example of extra arguments from the JSON metadata -->
+<!--     // custom_string: String, -->
+<!--     // custom_bool: Bool, -->
+<!--     // custom_u64: u64, -->
+<!--     // custom_struct_ref_1: &0x1234::new_module::other_struct, -->
+<!--     // custom_struct_ref_2: &0x5678::another_module::my_struct -->
+<!--     ctx: &mut TxContext -->
+<!-- ): Nft { -->
+<!--     // Implement your custom logic to assemble your NFT here. -->
+<!--     // Use the provided arguments, including any custom ones, to construct your NFT. -->
+<!--     // This function should return the newly created Nft object. -->
+<!-- } -->
+<!-- ```` -->
+<!---->
+<!-- **Explanation:** -->
+<!---->
+<!-- 1.  **`mint_cap: &MintCap`:** This capability object is typically required by NFT collection contracts to authorize the creation of new NFTs. -->
+<!-- 2.  **NFT Construction:** Inside this function, you will write the logic to construct your specific `Nft` struct, populating it with the provided `name`, `description`, `image_url`, `tarit_keys`, `value_keys`, and any `custom_` arguments. -->
+<!-- 3.  **Return `Nft`:** The function must return the fully assembled `Nft` object, which the Hokko Launchpad client will then use to mint. -->
 
 #### Common Considerations for NFT Metadata
 
@@ -129,6 +131,10 @@ The `extra-inputs` and `extra-argument-types` found in some JSON examples are fo
       }
     ],
     "extra-inputs": [
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
       {
         "type": "String",
         "vaulue": "Some string data"
@@ -171,6 +177,10 @@ The `extra-inputs` and `extra-argument-types` found in some JSON examples are fo
       }
     ],
     "extra-inputs": [
+      {
+        "type": "0xd5737054a0a5166df815d663087e215e7382a0e8bab8eb406e970566dcde76d5::nft::Config",
+        "value": "0x2d8532145b0afeb1e4cfa1c94fff1cb31d98520fe730083b54a41d623e53cc6f"
+      }
       {
         "type": "String",
         "vaulue": "Some different string"

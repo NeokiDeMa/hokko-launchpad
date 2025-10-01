@@ -112,6 +112,8 @@ module launchpad::launch_manager {
         whitelist_start_timestamp_ms: u64,
         whitelist_price: u64,
         whitelist_supply: u64,
+        addresses: vector<address>,
+        allocations: vector<u64>,
         custom_enabled: bool,
         custom_name: String,
         custom_start_timestamp_ms: u64,
@@ -148,6 +150,8 @@ module launchpad::launch_manager {
         whitelist_price: Option<u64>,
         whitelist_supply: Option<u64>,
         whitelist_start_timestamp_ms: Option<u64>,
+        whitelist_addresses: Option<vector<address>>,
+        whitelist_allocations: Option<vector<u64>>,
         custom_name: Option<String>,
         custom_price: Option<u64>,
         custom_supply: Option<u64>,
@@ -169,6 +173,8 @@ module launchpad::launch_manager {
             whitelist_price,
             whitelist_supply,
             whitelist_start_timestamp_ms,
+            whitelist_addresses,
+            whitelist_allocations,
             custom_name,
             custom_price,
             custom_supply,
@@ -196,13 +202,15 @@ module launchpad::launch_manager {
         price: u64,
         is_kiosk: bool,
         start_timestamp_ms: u64,
-        max_items_per_address: u64,
+        mut max_items_per_address: u64,
         // Optional fields. Use option::some to set them or option::none to skip them
         // By default whitelist is disabled
         // To enable whitelist, set whitelist_price, whitelist_supply, and whitelist_start_timestamp_ms
         whitelist_price: Option<u64>,
         whitelist_supply: Option<u64>,
         whitelist_start_timestamp_ms: Option<u64>,
+        whitelist_addresses: Option<vector<address>>,
+        whitelist_allocations: Option<vector<u64>>,
         // Optional fields. Use option::some to set them or option::none to skip them
         // By default custom phase is disabled
         // To enable custom phase, set custom_price, custom_supply, and custom_start_timestamp_ms
@@ -215,6 +223,10 @@ module launchpad::launch_manager {
         launchpad.assert_version();
         assert!(package::from_package<T>(publisher), error::invalidPublisher!());
         assert!(start_timestamp_ms >= clock.timestamp_ms(), error::invalidStartTimestamp!());
+
+        if (max_items_per_address == 0) {
+            max_items_per_address = supply;
+        };
 
         let mut launch = Launch {
             id: object::new(ctx),
@@ -246,8 +258,8 @@ module launchpad::launch_manager {
         let creator = roles::new_creator(launch.id.to_inner(), ctx);
 
         if (
-            whitelist_price.is_some() && 
-            whitelist_supply.is_some() && 
+            whitelist_price.is_some() &&
+            whitelist_supply.is_some() &&
             whitelist_start_timestamp_ms.is_some()
         ) {
             launch.enable_whitelist_impl(
@@ -258,10 +270,19 @@ module launchpad::launch_manager {
             );
         };
 
+        let addresses = whitelist_addresses.destroy_with_default(vector[]);
+        let allocations = whitelist_allocations.destroy_with_default(vector[]);
+        if (whitelist_addresses.is_some() && whitelist_allocations.is_some()) {
+            launch.update_whitelist_impl(
+                addresses,
+                allocations,
+            );
+        };
+
         if (
-            custom_name.is_some() && 
-            custom_price.is_some() && 
-            custom_supply.is_some() && 
+            custom_name.is_some() &&
+            custom_price.is_some() &&
+            custom_supply.is_some() &&
             custom_start_timestamp_ms.is_some()
         ) {
             let start_time = if (launch.whitelist_enabled) {
@@ -295,6 +316,8 @@ module launchpad::launch_manager {
             whitelist_start_timestamp_ms: launch.whitelist_start_timestamp_ms,
             whitelist_price: launch.whitelist_price,
             whitelist_supply: launch.whitelist_supply,
+            addresses,
+            allocations,
             custom_enabled: launch.custom_enabled,
             custom_name: launch.custom_name,
             custom_start_timestamp_ms: launch.custom_start_timestamp_ms,
@@ -386,7 +409,7 @@ module launchpad::launch_manager {
         };
 
         if (
-            launch.custom_enabled && 
+            launch.custom_enabled &&
                  now > launch.custom_start_timestamp_ms &&
                  now < launch.start_timestamp_ms
         ) {
@@ -472,34 +495,28 @@ module launchpad::launch_manager {
         // todo: add max batch size
         cap.assert_launch_creator(launch.id.to_inner());
         launch.assert_whitelist_enabled();
-
-        let users_length = addresses.length();
-
-        assert!(users_length >= 1, error::invalidVectorLength!());
-        assert!(users_length == allocations.length(), error::invalidVectorLength!());
-
-        let is_valid_allocations = allocations.all!(|allocation| {
-            *allocation >= 1
-        });
-
-        assert!(is_valid_allocations, error::invalidWhitelistAllocation!());
-
-        let whitelist = &mut launch.whitelist;
-
-        addresses.zip_do!(allocations, |address, allocation| {
-            if (!whitelist.contains(address)) {
-                whitelist.add(address, allocation);
-            } else {
-                let current_allocation = &mut whitelist[address];
-                *current_allocation = allocation;
-            }
-        });
+        launch.update_whitelist_impl(addresses, allocations);
 
         emit(LaunchWhitelistUpdatedEvent {
             launch: launch.id.to_inner(),
             addresses,
             allocations,
         });
+    }
+
+    public fun update_launch_details(
+        self: &mut Launch,
+        cap: &Creator,
+        name: Option<String>,
+        cover_url: Option<String>,
+        description: Option<String>,
+        max_item_per_address: Option<u64>,
+    ) {
+        cap.assert_launch_creator(self.id.to_inner());
+        name.destroy!(|name| self.name = name);
+        cover_url.destroy!(|url| self.cover_url = url);
+        description.destroy!(|desc| self.description = desc);
+        max_item_per_address.destroy!(|amount| self.max_items_per_address = amount);
     }
 
     /// Optional function to pause the launch.
@@ -735,6 +752,34 @@ module launchpad::launch_manager {
             item: object::id(item),
             address: sender,
             metadata_id,
+        });
+    }
+
+    fun update_whitelist_impl(
+        self: &mut Launch,
+        addresses: vector<address>,
+        allocations: vector<u64>,
+    ) {
+        let users_length = addresses.length();
+
+        assert!(users_length >= 1, error::invalidVectorLength!());
+        assert!(users_length == allocations.length(), error::invalidVectorLength!());
+
+        let is_valid_allocations = allocations.all!(|allocation| {
+            *allocation >= 1
+        });
+
+        assert!(is_valid_allocations, error::invalidWhitelistAllocation!());
+
+        let whitelist = &mut self.whitelist;
+
+        addresses.zip_do!(allocations, |address, allocation| {
+            if (!whitelist.contains(address)) {
+                whitelist.add(address, allocation);
+            } else {
+                let current_allocation = &mut whitelist[address];
+                *current_allocation = allocation;
+            }
         });
     }
 

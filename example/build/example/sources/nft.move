@@ -57,7 +57,6 @@ module example::nft {
         let (tp, tp_cap) = transfer_policy::new<Nft>(&pub, ctx);
 
         setup_display(display::new<Nft>(&pub, ctx), sender);
-
         setup_rules(tp, tp_cap, sender);
 
         transfer::share_object(Config {
@@ -78,6 +77,7 @@ module example::nft {
         name: String,
         description: String,
         image_url: String,
+        metadata_id: String,
         trait_keys: vector<String>,
         value_keys: vector<String>,
         payment: Coin<SUI>,
@@ -98,7 +98,16 @@ module example::nft {
 
         config.mint_count = config.mint_count + 1;
 
-        launch_manager::mint_with_kiosk(launch, nft, payment, policy, clock, launchpad, ctx);
+        launch_manager::mint_with_kiosk(
+            launch,
+            nft,
+            payment,
+            policy,
+            clock,
+            metadata_id,
+            launchpad,
+            ctx,
+        );
     }
 
     /// Example on how a create_nft function should look like, The mint cap than needs to be stored in the auth_bridge

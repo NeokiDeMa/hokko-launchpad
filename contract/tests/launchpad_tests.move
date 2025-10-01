@@ -21,6 +21,7 @@ module launchpad::launchpad_tests {
     const Alice: address = @0x123;
     const Hokko: address = @0xabc;
     const HokkoAdmin: address = @0xdef;
+    const Mango: address = @0x111;
 
     public struct LAUNCHPAD_TESTS has drop {}
 
@@ -985,6 +986,10 @@ module launchpad::launchpad_tests {
         let whitelist_supply = option::some(16);
         let whitelist_start_timestamp_ms = option::some(clock.timestamp_ms() + 3);
         // print(&whitelist_start_timestamp_ms.destroy_some());
+        // let whitelist_addresses = option::none();
+        // let whitelist_allocations = option::none();
+        let whitelist_addresses = option::some(vector[Mango]);
+        let whitelist_allocations = option::some(vector[10]);
 
         let custom_name = option::some(b"custom launchpad name".to_string());
         let custom_price = option::some(to_mist(2));
@@ -1009,6 +1014,8 @@ module launchpad::launchpad_tests {
             whitelist_price,
             whitelist_supply,
             whitelist_start_timestamp_ms,
+            whitelist_addresses,
+            whitelist_allocations,
             custom_name,
             custom_price,
             custom_supply,
